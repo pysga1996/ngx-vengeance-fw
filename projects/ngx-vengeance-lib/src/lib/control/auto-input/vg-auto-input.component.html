@@ -1,0 +1,19 @@
+<div class="autocomplete" (focusin)="focus()" (focusout)="blur($event)">
+  <input type="text" class="form-control form-control-sm" [placeholder]="placeholder" #inputElement
+         (input)="inputText($event)">
+  <div class="autocomplete-items" *ngIf="imageField && isFocused">
+    <div *ngFor="let result of searchResults" [ngbTooltip]="result[nameField]"
+         (mousedown)="$event.preventDefault()"
+         (click)="emitResult($event, result)" >
+      <img class="d-inline-block w-25" [src]="result[imageField]" [alt]="result[nameField]" >
+      <small class="d-inline-block w-75 text-truncate pl-1">{{result[nameField]}}</small>
+    </div>
+  </div>
+  <div class="autocomplete-items" *ngIf="!imageField && isFocused">
+    <div *ngFor="let result of searchResults" [ngbTooltip]="result[nameField]"
+         (mousedown)="$event.preventDefault()"
+         (click)="emitResult($event, result)" >
+      <small class="d-inline-block w-100 text-truncate pl-1">{{result[nameField]}}</small>
+    </div>
+  </div>
+</div>

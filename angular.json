@@ -3,5 +3,144 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-vengeance-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/ngx-vengeance-demo",
+      "sourceRoot": "projects/ngx-vengeance-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-vengeance-demo",
+            "index": "projects/ngx-vengeance-demo/src/index.html",
+            "main": "projects/ngx-vengeance-demo/src/main.ts",
+            "polyfills": "projects/ngx-vengeance-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-vengeance-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-vengeance-demo/src/favicon.ico",
+              "projects/ngx-vengeance-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-vengeance-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-vengeance-demo/src/environments/environment.ts",
+                  "with": "projects/ngx-vengeance-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "options": {
+            "host": "localhost.test",
+            "port": 4200
+          },
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-vengeance-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-vengeance-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-vengeance-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-vengeance-demo/src/test.ts",
+            "polyfills": "projects/ngx-vengeance-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-vengeance-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-vengeance-demo/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-vengeance-demo/src/favicon.ico",
+              "projects/ngx-vengeance-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-vengeance-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "ngx-vengeance-lib": {
+      "projectType": "library",
+      "root": "projects/ngx-vengeance-lib",
+      "sourceRoot": "projects/ngx-vengeance-lib/src",
+      "prefix": "vg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-vengeance-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-vengeance-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-vengeance-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-vengeance-lib/src/test.ts",
+            "tsConfig": "projects/ngx-vengeance-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-vengeance-lib/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-vengeance-demo"
 }

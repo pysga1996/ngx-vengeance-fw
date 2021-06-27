@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ngx-vengeance-lib",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "assets": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+    "src/styles.scss"
+  ],
+  "allowedNonPeerDependencies": [
+    "@ng-bootstrap",
+    "bootstrap",
+    "bootstrap-icons",
+    "tslib"
+  ]
+}

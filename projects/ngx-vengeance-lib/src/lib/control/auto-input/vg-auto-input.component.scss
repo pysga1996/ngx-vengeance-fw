@@ -1,0 +1,72 @@
+
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items > div {
+  display: block;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+  box-sizing: content-box;
+}
+
+.autocomplete-items.auto-with-thumb > div > img {
+  width: 25%;
+}
+
+.autocomplete-items.auto-no-thumb > div > img {
+  display: none;
+}
+
+.autocomplete-items.auto-with-thumb > div > small {
+  width: 75%;
+}
+
+.autocomplete-items.auto-no-thumb > div > small {
+  width: 100%;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+:host {
+  --lh: 1.4rem;
+  --max-lines: 3;
+}
+
+.truncate-overflow {
+  line-height: var(--lh);
+  max-height: calc(var(--lh) * var(--max-lines));
+  overflow: hidden;
+}
+
+.truncate-overflow::before {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

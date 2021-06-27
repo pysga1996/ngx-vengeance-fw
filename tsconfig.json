@@ -11,6 +11,12 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "paths": {
+      "ngx-vengeance-lib": [
+        "dist/ngx-vengeance-lib/ngx-vengeance-lib",
+        "dist/ngx-vengeance-lib"
+      ]
+    },
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
