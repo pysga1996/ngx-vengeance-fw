@@ -24,7 +24,7 @@
           <label class="container">
             <input type="checkbox"
                    [checked]="$any(treeItem?.data)[columnConfig.key]"
-                   (change)="check($event)">
+                   (change)="check($event, columnConfig.key)">
             <span class="checkmark"></span>
           </label>
         </ng-container>
@@ -35,10 +35,10 @@
     </td>
   </tr>
   <ng-container *ngIf="treeItem.expanded">
-    <app-tree-table-item *ngFor="let item of treeItem.children; index as i"
+    <vg-tree-table-item *ngFor="let item of treeItem.children; index as i"
                          [treeTableConfig]="treeTableConfig" [treeItem]="item"
-                         [paddingBlockConfig]="paddingBlockConfig | treePaddingBlockConfig:item.level:i:treeItem.children.length - 1"
+                         [paddingBlockConfig]="paddingBlockConfig | vgTreeTableBlockConfig:item.level:i:treeItem.children.length - 1"
                          (onSelectRow)="forwardSelectRow($event)" (onCheck)="forwardCheck($event)">
-    </app-tree-table-item>
+    </vg-tree-table-item>
   </ng-container>
 </ng-template>
