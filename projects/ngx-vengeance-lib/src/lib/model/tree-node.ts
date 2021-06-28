@@ -3,5 +3,5 @@ export interface TreeNode<T> {
   children: TreeNode<T>[];
   expanded?: boolean;
   level: number;
-  isSelected?: boolean;
+  isDisabled: { [key: string]: boolean; };
 }

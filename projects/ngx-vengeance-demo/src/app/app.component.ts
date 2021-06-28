@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     level: level,
     children: item.child ? item.child.map((childItem: any) => AppComponent.formatItem(childItem, level + 1)) : [],
     expanded: true,
+    isDisabled: {},
   });
   treeTableConfig!: TreeTableConfig;
 

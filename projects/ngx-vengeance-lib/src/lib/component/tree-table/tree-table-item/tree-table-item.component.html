@@ -22,7 +22,7 @@
         </ng-container>
         <ng-container *ngSwitchCase="'CHECKBOX'">
           <label class="container">
-            <input type="checkbox"
+            <input type="checkbox" [disabled]="treeItem.isDisabled? treeItem.isDisabled[columnConfig.key] : false"
                    [checked]="$any(treeItem?.data)[columnConfig.key]"
                    (change)="check($event, columnConfig.key)">
             <span class="checkmark"></span>
