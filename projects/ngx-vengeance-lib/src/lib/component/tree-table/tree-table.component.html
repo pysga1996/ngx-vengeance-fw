@@ -8,11 +8,11 @@
   </tr>
   </thead>
   <tbody>
-  <app-tree-table-item *ngFor="let treeItem of treeItems; index as i"
+  <vg-tree-table-item *ngFor="let treeItem of treeItems; index as i"
                        [treeTableConfig]="treeTableConfig"
-                       [paddingBlockConfig]="{} | treePaddingBlockConfig:treeItem.level:i:treeItems.length - 1"
+                       [paddingBlockConfig]="{} | vgTreeTableBlockConfig:treeItem.level:i:treeItems.length - 1"
                        [treeItem]="treeItem"
                        (onSelectRow)="selectRow($event)" (onCheck)="check($event)">
-  </app-tree-table-item>
+  </vg-tree-table-item>
   </tbody>
 </table>

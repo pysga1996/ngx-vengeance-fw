@@ -10,3 +10,4 @@ export * from './lib/component/tree-table/tree-table-item/tree-table-item.compon
 export * from './lib/pipe/tree-padding-block-config.pipe';
 export * from './lib/model/tree-node';
 export * from './lib/model/tree-table-config';
+export * from './lib/model/tree-node-checkbox-event';

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TreeNode} from "../../model/tree-node";
-import {TreeNodeCheckboxEvent} from "./tree-table-item/tree-table-item.component";
 import {TreeTableConfig} from "../../model/tree-table-config";
+import {TreeNodeCheckboxEvent} from "../../model/tree-node-checkbox-event";
 
 @Component({
-  selector: 'app-tree-table',
+  selector: 'vg-tree-table',
   templateUrl: './tree-table.component.html',
   styleUrls: ['./tree-table.component.scss']
 })

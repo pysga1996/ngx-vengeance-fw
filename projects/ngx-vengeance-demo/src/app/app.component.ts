@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
 import { TreeTableConfig, TreeNode } from 'ngx-vengeance-lib';
+import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 
 @Component({
   selector: 'app-root',
@@ -93,5 +94,9 @@ export class AppComponent implements OnInit {
 
   search(event: string) {
     this.tempResults = this.searchResults.filter(e => e.title.includes(event));
+  }
+
+  logCheckedNode(event: TreeNodeCheckboxEvent) {
+    console.log(event);
   }
 }
