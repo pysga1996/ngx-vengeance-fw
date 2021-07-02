@@ -14,21 +14,22 @@ export class AppComponent implements OnInit {
   searchResults: any[] = [];
   tempResults: any[] = [];
   tree: any[] = [];
-  static formatItem = (item: any, level: number): TreeNode<any> => ({
+  static formatItem = (item: any, level: number): any => ({
     data: {
       id: item.id,
       name: `${item.name}`,
       age: item.age,
       email: item.email,
       registered: item.registered,
-      level: level
+      level: null,
+      parent: item.parent
     },
     level: level,
     children: item.child ? item.child.map((childItem: any) => AppComponent.formatItem(childItem, level + 1)) : [],
     expanded: true,
     isDisabled: {},
     isFixed: {},
-    sequence: 0,
+    sequence: null,
     paddingBlock: {},
   });
   treeTableConfig!: TreeTableConfig;
@@ -44,7 +45,8 @@ export class AppComponent implements OnInit {
           title: 'Is registered?',
           key: 'registered',
           type: 'CHECKBOX',
-          customClass: 'd-flex justify-content-center'
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
         },
         {
           title: 'ID',

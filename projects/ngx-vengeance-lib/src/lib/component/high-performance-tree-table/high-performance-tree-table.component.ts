@@ -14,8 +14,10 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
         columns: [],
     };
     @Input() treeItems: TreeNode<unknown>[] = [];
+    @Input() parentIdKey: string = 'parent_id';
     treeHashmap: { [key: string]: TreeNode<unknown> } = {};
     sortedNodeList: TreeNode<unknown>[] = [];
+    selectedNode: TreeNode<unknown> | undefined;
 
     constructor() {
     }
@@ -30,7 +32,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
                 node.paddingBlock = {...paddingBlock};
                 seqObj.sequence++;
                 this.processTreeSequenceAndLevel(node, nodeList, seqObj, level,
-                    node.paddingBlock, i === node.children.length);
+                    node.paddingBlock, i === node.children.length - 1);
             });
             nodeList.sort((a, b) => a.sequence - b.sequence);
             this.sortedNodeList = nodeList;
@@ -56,6 +58,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
 
     selectRow(treeItem?: TreeNode<unknown>) {
+      this.selectedNode = treeItem;
     }
 
     setExpanded(treeItem: TreeNode<unknown>, expanded: boolean) {
@@ -74,7 +77,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
 
     checkParents(treeItem: TreeNode<unknown>, key: string): void {
-        const parentNode: TreeNode<unknown> = this.treeHashmap[(treeItem.data as any)['parent_id']];
+        const parentNode: TreeNode<unknown> = this.treeHashmap[(treeItem.data as any)[this.parentIdKey]];
         if (parentNode) {
             (parentNode.data as any)[key] =
                 parentNode.children.every(childNode => (childNode.data as any)[key]);
