@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
-import { TreeTableConfig, TreeNode } from 'ngx-vengeance-lib';
+import {TreeTableConfig, TreeNode} from 'ngx-vengeance-lib';
 import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 
 @Component({
@@ -27,6 +27,9 @@ export class AppComponent implements OnInit {
     children: item.child ? item.child.map((childItem: any) => AppComponent.formatItem(childItem, level + 1)) : [],
     expanded: true,
     isDisabled: {},
+    isFixed: {},
+    sequence: 0,
+    paddingBlock: {},
   });
   treeTableConfig!: TreeTableConfig;
 
@@ -87,10 +90,10 @@ export class AppComponent implements OnInit {
     this.tree = tree.map((e: any) => AppComponent.formatItem(e, 0));
     console.log(tree);
     this.http.get<any[]>('https://jsonplaceholder.typicode.com/photos')
-    .subscribe(next => {
-      this.searchResults = next;
-      // console.log(this.searchResults);
-    });
+      .subscribe(next => {
+        this.searchResults = next;
+        // console.log(this.searchResults);
+      });
   }
 
   search(event: string) {
