@@ -7,6 +7,9 @@ export interface TreeTableColumnConfig {
   type?: 'TEXT' | 'CHECKBOX' | 'CUSTOM';
   customClass?: string;
   templateRef?: TemplateRef<any>;
+  checkboxVerticalCascade?: boolean;
+  checkboxHorizontalCascade?: { key: string; disabled: boolean; }[];
+  checkboxDisabled?: boolean;
 }
 
 export interface TreeTableConfig {

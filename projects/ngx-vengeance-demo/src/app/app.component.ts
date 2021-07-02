@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
-import { TreeTableConfig, TreeNode } from 'ngx-vengeance-lib';
+import {TreeTableConfig, TreeNode} from 'ngx-vengeance-lib';
 import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 
 @Component({
@@ -14,18 +14,23 @@ export class AppComponent implements OnInit {
   searchResults: any[] = [];
   tempResults: any[] = [];
   tree: any[] = [];
-  static formatItem = (item: any, level: number): TreeNode<any> => ({
+  static formatItem = (item: any, level: number): any => ({
     data: {
       id: item.id,
       name: `${item.name}`,
       age: item.age,
       email: item.email,
       registered: item.registered,
-      level: level
+      level: null,
+      parent: item.parent
     },
     level: level,
     children: item.child ? item.child.map((childItem: any) => AppComponent.formatItem(childItem, level + 1)) : [],
     expanded: true,
+    isDisabled: {},
+    isFixed: {},
+    sequence: null,
+    paddingBlock: {},
   });
   treeTableConfig!: TreeTableConfig;
 
@@ -40,7 +45,8 @@ export class AppComponent implements OnInit {
           title: 'Is registered?',
           key: 'registered',
           type: 'CHECKBOX',
-          customClass: 'd-flex justify-content-center'
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
         },
         {
           title: 'ID',
@@ -86,10 +92,10 @@ export class AppComponent implements OnInit {
     this.tree = tree.map((e: any) => AppComponent.formatItem(e, 0));
     console.log(tree);
     this.http.get<any[]>('https://jsonplaceholder.typicode.com/photos')
-    .subscribe(next => {
-      this.searchResults = next;
-      // console.log(this.searchResults);
-    });
+      .subscribe(next => {
+        this.searchResults = next;
+        // console.log(this.searchResults);
+      });
   }
 
   search(event: string) {

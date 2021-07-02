@@ -41,14 +41,37 @@ export class TreeTableItemComponent implements OnInit {
 
   check(event: any, key: string) {
     event.stopPropagation();
+    const checked = (event.target as HTMLInputElement)?.checked;
+    (this.treeItem.data as any)[key] = checked;
+    const config = this.treeTableConfig.columns.find(columnConfig => columnConfig.key === event.key);
+    if (config?.checkboxHorizontalCascade) {
+      config.checkboxHorizontalCascade.forEach(cascade => {
+        if (checked) {
+          (this.treeItem.data as any)[cascade.key] = true;
+          this.treeItem.isDisabled[cascade.key] = true;
+        } else {
+          this.treeItem.isDisabled[cascade.key] = false;
+        }
+        this.onCheck.emit({
+          key: cascade.key,
+          checked: (this.treeItem.data as any)[cascade.key],
+          node: this.treeItem,
+        });
+      });
+    }
     this.onCheck.emit({
       key: key,
-      checked: (event.target as HTMLInputElement)?.checked,
-      node: this.treeItem
+      checked: checked,
+      node: this.treeItem,
     });
   }
 
   forwardCheck(event: TreeNodeCheckboxEvent) {
+    const config = this.treeTableConfig.columns.find(columnConfig => columnConfig.key === event.key);
+    if (config?.checkboxVerticalCascade) {
+      (this.treeItem.data as any)[event.key] =
+        this.treeItem.children.every(childNode => (childNode.data as any)[event.key]);
+    }
     this.onCheck.emit(event);
   }
 
