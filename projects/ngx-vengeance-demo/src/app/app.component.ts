@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
-import {TreeTableConfig, TreeNode} from 'ngx-vengeance-lib';
-import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
+import {TreeNode, TreeNodeCheckboxEvent, TreeTableConfig} from 'ngx-vengeance-lib';
+// import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
+// import {TreeTableConfig} from "../../../ngx-vengeance-lib/src/lib/model/tree-table-config";
+// import {TreeNode} from "../../../ngx-vengeance-lib/src/lib/model/tree-node";
 
 @Component({
   selector: 'app-root',
@@ -14,25 +16,30 @@ export class AppComponent implements OnInit {
   searchResults: any[] = [];
   tempResults: any[] = [];
   tree: any[] = [];
-  static formatItem = (item: any, level: number): any => ({
-    data: {
-      id: item.id,
-      name: `${item.name}`,
-      age: item.age,
-      email: item.email,
-      registered: item.registered,
-      level: null,
-      parent: item.parent
-    },
-    level: level,
-    children: item.child ? item.child.map((childItem: any) => AppComponent.formatItem(childItem, level + 1)) : [],
-    expanded: true,
-    isDisabled: {},
-    isFixed: {},
-    sequence: null,
-    paddingBlock: {},
-  });
+  formatItem(item: any, level: number): any {
+    const node: TreeNode<any> = {
+      data: {
+        id: item.id,
+        name: item.name,
+        age: item.age,
+        email: `${item.email}@gmail.com`,
+        registered: false,
+        level: null,
+        parent: item.parent
+      },
+      level: level,
+      children: item.child ? item.child.map((childItem: any) => this.formatItem(childItem, level + 1)) : [],
+      expanded: true,
+      isDisabled: {},
+      isFixed: {},
+      sequence: 0,
+      paddingBlock: {},
+    }
+    this.map[node.data.id] = node;
+    return node;
+  };
   treeTableConfig!: TreeTableConfig;
+  map: { [key: string]: TreeNode<any> } = {};
 
   constructor(private http: HttpClient) {
 
@@ -63,11 +70,6 @@ export class AppComponent implements OnInit {
         {
           title: 'Email',
           key: 'id'
-        },
-        {
-          title: 'Level',
-          key: 'level',
-          customClass: 'd-flex justify-content-center'
         }
       ]
     };
@@ -88,9 +90,17 @@ export class AppComponent implements OnInit {
       maxLevel: 3 // Max nesting
     }
     let tree: any[] = TreeGen.generate(config);
-    // console.log(tree);
-    this.tree = tree.map((e: any) => AppComponent.formatItem(e, 0));
-    console.log(tree);
+    this.map['root'] = {
+      data: {id: 'root', parent: null},
+      children: tree.map((e: any) => this.formatItem(e, 0)),
+      level: -1,
+      sequence: -1,
+      isDisabled: {},
+      isFixed: {},
+      paddingBlock: {}
+    };
+    this.tree = this.map['root'].children;
+    console.log(this.tree, this.map);
     this.http.get<any[]>('https://jsonplaceholder.typicode.com/photos')
       .subscribe(next => {
         this.searchResults = next;

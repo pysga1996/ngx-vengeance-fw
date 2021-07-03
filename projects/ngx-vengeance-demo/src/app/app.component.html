@@ -94,10 +94,11 @@
 
   <!-- Next Steps -->
   <h2>Next Steps</h2>
-  <vg-auto-input [searchResults]="tempResults" [nameField]="'title'" [valueField]="'id'"
-                 (onChangeText)="search($event)"></vg-auto-input>
+<!--  <vg-auto-input [searchResults]="tempResults" [nameField]="'title'" [valueField]="'id'"-->
+<!--                 (onChangeText)="search($event)"></vg-auto-input>-->
 <!--  <vg-tree-table [treeTableConfig]="treeTableConfig" [treeItems]="tree" (onCheckNode)="logCheckedNode($event)"></vg-tree-table>-->
-  <ngx-high-performance-tree-table [treeTableConfig]="treeTableConfig" [treeItems]="tree" [parentIdKey]="'parent'"
+  <ngx-high-performance-tree-table [ngStyle]="{width: '100%'}"
+    [treeTableConfig]="treeTableConfig" [treeItems]="tree" [parentIdKey]="'parent'"
   ></ngx-high-performance-tree-table>
 
   <input type="hidden" #selection>
