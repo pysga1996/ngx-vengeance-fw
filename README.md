@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
+##Features
+1. Components:
+    - Tree Table
+    - High Performance Tree Table
+2. Inputs:
+    - Auto Input
+    - Number Input
+    - Currency Input
+3. Directives:
+    - Number Input
+    - Currency Input
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
