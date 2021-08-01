@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from "@angular/common/http";
-import { VgControlModule, VgComponentModule } from 'ngx-vengeance-lib';
+import { VgControlModule, VgTreeTableModule } from 'ngx-vengeance-lib';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { VgControlModule, VgComponentModule } from 'ngx-vengeance-lib';
     HttpClientModule,
     NgbModule,
     VgControlModule,
-    VgComponentModule,
+    VgTreeTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

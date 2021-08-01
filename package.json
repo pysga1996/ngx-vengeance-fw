@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve ngx-vengeance-demo --disable-host-check",
+    "start": "ng serve ngx-vengeance-demo",
     "build": "ng build ngx-vengeance-demo",
-    "build-lib": "ng build ngx-vengeance-lib --prod",
+    "build-lib": "ng build ngx-vengeance-lib",
     "pack-lib": "cd dist/ngx-vengeance-lib && npm pack && cd ..",
     "patch-lib": "cd dist/ngx-vengeance-lib && npm version patch && cd ..",
     "login": "npm login",
@@ -17,6 +17,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.4",
+    "@angular/cdk": "^12.1.4",
     "@angular/common": "~12.1.4",
     "@angular/compiler": "~12.1.4",
     "@angular/core": "~12.1.4",

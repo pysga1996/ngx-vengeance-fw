@@ -1,9 +1,9 @@
 import {Directive, ElementRef, HostListener, Input} from "@angular/core";
 
 @Directive({
-  selector: '[hoverClass]'
+  selector: '[vgHoverClass]'
 })
-export class HoverClassDirective {
+export class VgHoverClassDirective {
 
   focusedElement: ElementRef | undefined | null;
 

@@ -1,0 +1,25 @@
+<div class="vt-toast d-flex"
+     [ngStyle]="{'background-color': conf.type?.bgColor ?? 'white',
+     'width': conf.size?.width ?? '200px', 'height': conf.size.height ?? '50px',
+     'color': conf.type?.textColor ?? 'black',
+     'border-bottom-left-radius': conf.duration ? '0' : '3px',
+     'border-bottom-right-radius': conf.duration ? '0' : '3px'}"
+     [ngClass]="conf.class ?? ''"
+     [@fadeAnimation]="{value: animationState, params:
+        { fadeIn: conf.animation?.fadeIn ?? 0, fadeOut: conf.animation?.fadeOut ?? 0 }}"
+     (@fadeAnimation.done)="onFadeFinished($event)"
+     (click)="close()">
+  <i *ngIf="conf.type?.iconClass" [ngClass]="conf.type?.iconClass ?? ''"></i>
+  <ng-container *ngIf="data.text; else templateReference">
+    <div>{{ data.text }}</div>
+  </ng-container>
+</div>
+<div class="vt-progress-bar" *ngIf="conf.duration"
+     [ngStyle]="{'width': (progress * 100 / (conf.duration ?? 0)) + '%',
+     'background-color': conf.type?.bgColor ?? 'white',
+     'filter': 'brightness(50%)'}">
+</div>
+<ng-template #templateReference>
+  <ng-container [ngTemplateOutlet]="data.template || null" [ngTemplateOutletContext]="data.templateContext || null">
+  </ng-container>
+</ng-template>

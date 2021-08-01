@@ -1,28 +1,28 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {TreeTableColumnConfig, TreeTableConfig} from "../../model/tree-table-config";
-import {TreeNode} from "../../model/tree-node";
+import {VgTreeTableColumnConfig, VgTreeTableConfig} from "../../model/vg-tree-table.config";
+import {VgTreeNode} from "../../model/vg-tree-node";
 
 
 @Component({
-  selector: 'ngx-high-performance-tree-table',
-  templateUrl: './high-performance-tree-table.component.html',
-  styleUrls: ['./high-performance-tree-table.component.scss'],
+  selector: 'vg-light-tree-table',
+  templateUrl: './vg-light-tree-table.component.html',
+  styleUrls: ['./vg-light-tree-table.component.scss'],
 })
-export class HighPerformanceTreeTableComponent implements OnChanges {
+export class VgLightTreeTableComponent implements OnChanges {
 
-  @Input() treeTableConfig: TreeTableConfig = {
+  @Input() treeTableConfig: VgTreeTableConfig = {
     columns: [],
   };
-  @Input() treeItems: TreeNode<unknown>[] = [];
-  @Input() treeMap!: { [key: string]: TreeNode<unknown> };
+  @Input() treeItems: VgTreeNode<unknown>[] = [];
+  @Input() treeMap!: { [key: string]: VgTreeNode<unknown> };
   @Input() idKey: string = 'id';
   @Input() parentIdKey: string = 'parent_id';
   @Input() rootId: string = 'root';
-  @Output() onSelectRow: EventEmitter<TreeNode<unknown> | undefined> =
-    new EventEmitter<TreeNode<unknown> | undefined>();
-  sortedNodeList: TreeNode<unknown>[] = [];
-  selectedNode: TreeNode<unknown> | undefined;
-  internalTreeMap: { [key: string]: TreeNode<unknown> } = {};
+  @Output() onSelectRow: EventEmitter<VgTreeNode<unknown> | undefined> =
+    new EventEmitter<VgTreeNode<unknown> | undefined>();
+  sortedNodeList: VgTreeNode<unknown>[] = [];
+  selectedNode: VgTreeNode<unknown> | undefined;
+  internalTreeMap: { [key: string]: VgTreeNode<unknown> } = {};
   useInternalTreeMap: boolean = false;
 
   constructor() {
@@ -35,10 +35,10 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
       if (!this.useInternalTreeMap) {
         this.internalTreeMap = this.treeMap;
       }
-      const nodeList: TreeNode<unknown>[] = [];
+      const nodeList: VgTreeNode<unknown>[] = [];
       const seqObj = {sequence: 0};
       const initialPaddingBlock = {[0]: true};
-      const rootNode: TreeNode<unknown> = {
+      const rootNode: VgTreeNode<unknown> = {
         data: {id: this.rootId, parentId: null},
         children: [],
         level: -1,
@@ -69,7 +69,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
   }
 
-  processTreeSequenceAndLevel(node: TreeNode<unknown>, nodeList: TreeNode<unknown>[],
+  processTreeSequenceAndLevel(node: VgTreeNode<unknown>, nodeList: VgTreeNode<unknown>[],
                               seqObj: { sequence: number }, level: number,
                               paddingBlock: { [key: string]: boolean }, isLastChild: boolean): void {
     seqObj.sequence++;
@@ -89,20 +89,20 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     });
   }
 
-  selectRow(event: Event, treeItem?: TreeNode<unknown>) {
+  selectRow(event: Event, treeItem?: VgTreeNode<unknown>) {
     event.stopPropagation();
     this.selectedNode = treeItem;
     this.onSelectRow.emit(this.selectedNode);
   }
 
-  hideChildren(treeItem: TreeNode<unknown>): void {
+  hideChildren(treeItem: VgTreeNode<unknown>): void {
     treeItem.hidden = true;
     treeItem.children.forEach(childNode => {
       this.hideChildren(childNode);
     });
   }
 
-  showChildren(treeItem: TreeNode<unknown>): void {
+  showChildren(treeItem: VgTreeNode<unknown>): void {
     treeItem.hidden = false;
     if (treeItem.expanded) {
       treeItem.children.forEach(childNode => {
@@ -115,7 +115,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
   }
 
-  expand(event: any, treeItem: TreeNode<unknown>) {
+  expand(event: any, treeItem: VgTreeNode<unknown>) {
     event.stopPropagation();
     const expanded = !treeItem.expanded;
     treeItem.expanded = expanded;
@@ -130,8 +130,8 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
   }
 
-  checkParents(treeItem: TreeNode<unknown>, key: string): void {
-    const parentNode: TreeNode<unknown> = this.internalTreeMap[(treeItem.data as any)[this.parentIdKey]];
+  checkParents(treeItem: VgTreeNode<unknown>, key: string): void {
+    const parentNode: VgTreeNode<unknown> = this.internalTreeMap[(treeItem.data as any)[this.parentIdKey]];
     if (parentNode) {
       (parentNode.data as any)[key] =
         parentNode.children.every(childNode => (childNode.data as any)[key]);
@@ -139,14 +139,14 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
   }
 
-  checkChildren(treeItem: TreeNode<unknown>, key: string, checked: boolean): void {
+  checkChildren(treeItem: VgTreeNode<unknown>, key: string, checked: boolean): void {
     (treeItem.data as any)[key] = checked;
     treeItem.children.forEach(childNode => {
       this.checkChildren(childNode, key, checked);
     });
   }
 
-  check(event: any, columnConfig: TreeTableColumnConfig, node: TreeNode<unknown>) {
+  check(event: any, columnConfig: VgTreeTableColumnConfig, node: VgTreeNode<unknown>) {
     event.stopPropagation();
     const checked = (event.target as HTMLInputElement)?.checked;
     (node.data as any)[columnConfig.key] = checked;
@@ -156,7 +156,7 @@ export class HighPerformanceTreeTableComponent implements OnChanges {
     }
   }
 
-  checkAll(event: Event, columnConfig: TreeTableColumnConfig) {
+  checkAll(event: Event, columnConfig: VgTreeTableColumnConfig) {
     event.stopPropagation();
     const checked = (event.target as HTMLInputElement)?.checked;
     this.treeItems.forEach(node => {

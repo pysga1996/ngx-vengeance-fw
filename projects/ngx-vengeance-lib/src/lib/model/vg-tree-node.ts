@@ -1,6 +1,6 @@
-export interface TreeNode<T> {
+export interface VgTreeNode<T> {
   data: T;
-  children: TreeNode<T>[];
+  children: VgTreeNode<T>[];
   expanded?: boolean;
   level: number;
   isDisabled: { [key: string]: boolean; };

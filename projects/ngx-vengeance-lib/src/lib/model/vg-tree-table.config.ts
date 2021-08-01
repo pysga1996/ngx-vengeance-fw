@@ -1,6 +1,6 @@
 import {TemplateRef} from "@angular/core";
 
-export interface TreeTableColumnConfig {
+export interface VgTreeTableColumnConfig {
   title?: string;
   key: string;
   width?: string;
@@ -12,6 +12,6 @@ export interface TreeTableColumnConfig {
   checkboxDisabled?: boolean;
 }
 
-export interface TreeTableConfig {
-  columns: TreeTableColumnConfig[];
+export interface VgTreeTableConfig {
+  columns: VgTreeTableColumnConfig[];
 }

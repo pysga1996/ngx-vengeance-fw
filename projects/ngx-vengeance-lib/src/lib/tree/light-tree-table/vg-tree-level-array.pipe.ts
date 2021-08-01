@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-    name: 'treeLevelArr',
+    name: 'vgTreeLevel',
     pure: false,
 })
-export class TreeLevelArrayPipe implements PipeTransform {
+export class VgTreeLevelArrayPipePipe implements PipeTransform {
     transform(value: any, ...args: any[]): any {
         return new Array(value + 1);
     }

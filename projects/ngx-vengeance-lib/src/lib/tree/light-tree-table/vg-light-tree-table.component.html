@@ -22,9 +22,9 @@
   </thead>
   <tbody>
   <tr *ngFor="let treeItem of sortedNodeList" tabindex="0" [class.d-none]="treeItem.hidden"
-      (click)="selectRow($event, treeItem)" (blur)="selectRow($event)" hoverClass [hover-class]="'table-active'">
+      (click)="selectRow($event, treeItem)" (blur)="selectRow($event)" vgHoverClass [hover-class]="'table-active'">
     <td class="m-0" [style]="{width: '30%'}">
-            <span *ngFor="let item of treeItem.level | treeLevelArr; index as j; count as size"
+            <span *ngFor="let item of treeItem.level | vgTreeLevel; index as j; count as size"
                   class="tree-table-space-block"
                   [class.y-line]="treeItem.paddingBlock[j]"
                   [class.last-block]="j === size - 1">

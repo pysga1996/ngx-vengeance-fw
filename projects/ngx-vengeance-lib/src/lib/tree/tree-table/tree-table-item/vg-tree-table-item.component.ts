@@ -8,22 +8,22 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {TreeNode} from "../../../model/tree-node";
-import {TreeTableConfig} from "../../../model/tree-table-config";
-import {TreeNodeCheckboxEvent} from "../../../model/tree-node-checkbox-event";
+import {VgTreeNode} from "../../../model/vg-tree-node";
+import {VgTreeTableConfig} from "../../../model/vg-tree-table.config";
+import {VgTreeNodeCheckboxEvent} from "../../../model/vg-tree-node-checkbox-event";
 
 @Component({
   selector: 'vg-tree-table-item',
-  templateUrl: './tree-table-item.component.html',
-  styleUrls: ['./tree-table-item.component.scss']
+  templateUrl: './vg-tree-table-item.component.html',
+  styleUrls: ['./vg-tree-table-item.component.scss']
 })
-export class TreeTableItemComponent implements OnInit {
+export class VgTreeTableItemComponent implements OnInit {
 
-  @Input() treeTableConfig!: TreeTableConfig;
-  @Input() treeItem!: TreeNode<unknown>;
+  @Input() treeTableConfig!: VgTreeTableConfig;
+  @Input() treeItem!: VgTreeNode<unknown>;
   @Input() paddingBlockConfig: any;
-  @Output() onCheck: EventEmitter<TreeNodeCheckboxEvent> = new EventEmitter();
-  @Output() onSelectRow: EventEmitter<TreeNode<unknown> | null> = new EventEmitter();
+  @Output() onCheck: EventEmitter<VgTreeNodeCheckboxEvent> = new EventEmitter();
+  @Output() onSelectRow: EventEmitter<VgTreeNode<unknown> | null> = new EventEmitter();
   @ViewChild('template', {static: true}) template!: TemplateRef<any>;
 
   constructor(private viewContainerRef: ViewContainerRef) {
@@ -34,7 +34,7 @@ export class TreeTableItemComponent implements OnInit {
   }
 
 
-  expand(event: any, treeItem: TreeNode<unknown>) {
+  expand(event: any, treeItem: VgTreeNode<unknown>) {
     event.stopPropagation();
     treeItem.expanded = !treeItem.expanded;
   }
@@ -66,7 +66,7 @@ export class TreeTableItemComponent implements OnInit {
     });
   }
 
-  forwardCheck(event: TreeNodeCheckboxEvent) {
+  forwardCheck(event: VgTreeNodeCheckboxEvent) {
     const config = this.treeTableConfig.columns.find(columnConfig => columnConfig.key === event.key);
     if (config?.checkboxVerticalCascade) {
       (this.treeItem.data as any)[event.key] =
@@ -75,11 +75,11 @@ export class TreeTableItemComponent implements OnInit {
     this.onCheck.emit(event);
   }
 
-  selectRow(node: TreeNode<unknown> | null) {
+  selectRow(node: VgTreeNode<unknown> | null) {
     this.onSelectRow.emit(node)
   }
 
-  forwardSelectRow(node: TreeNode<unknown> | null) {
+  forwardSelectRow(node: VgTreeNode<unknown> | null) {
     this.onSelectRow.emit(node);
   }
 }

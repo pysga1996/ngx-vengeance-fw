@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TreeTableComponent } from './tree-table.component';
+import { VgTreeTableItemComponent } from './vg-tree-table-item.component';
 
-describe('TreeTableComponent', () => {
-  let component: TreeTableComponent;
-  let fixture: ComponentFixture<TreeTableComponent>;
+describe('TreeTableItemComponent', () => {
+  let component: VgTreeTableItemComponent;
+  let fixture: ComponentFixture<VgTreeTableItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TreeTableComponent ]
+      declarations: [ VgTreeTableItemComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreeTableComponent);
+    fixture = TestBed.createComponent(VgTreeTableItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,7 +10,7 @@
   <tbody>
   <vg-tree-table-item *ngFor="let treeItem of treeItems; index as i"
                        [treeTableConfig]="treeTableConfig"
-                       [paddingBlockConfig]="{} | vgTreeTableBlockConfig:treeItem.level:i:treeItems.length - 1"
+                       [paddingBlockConfig]="{} | vgTreeTableBlock:treeItem.level:i:treeItems.length - 1"
                        [treeItem]="treeItem"
                        (onSelectRow)="selectRow($event)" (onCheck)="check($event)">
   </vg-tree-table-item>

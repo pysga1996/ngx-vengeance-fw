@@ -37,7 +37,7 @@
   <ng-container *ngIf="treeItem.expanded">
     <vg-tree-table-item *ngFor="let item of treeItem.children; index as i"
                          [treeTableConfig]="treeTableConfig" [treeItem]="item"
-                         [paddingBlockConfig]="paddingBlockConfig | vgTreeTableBlockConfig:item.level:i:treeItem.children.length - 1"
+                         [paddingBlockConfig]="paddingBlockConfig | vgTreeTableBlock:item.level:i:treeItem.children.length - 1"
                          (onSelectRow)="forwardSelectRow($event)" (onCheck)="forwardCheck($event)">
     </vg-tree-table-item>
   </ng-container>
