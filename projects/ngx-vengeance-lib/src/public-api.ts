@@ -18,7 +18,6 @@ export * from './lib/toast/vg-toast.service';
 export * from './lib/toast/vg-toast.module';
 export * from './lib/toast/vg-toast.config';
 export * from './lib/toast/vg-toast-data';
-export * from './lib/toast/vg-toast-ref';
-export * from './lib/toast/vg-toast-animation';
+export * from './lib/toast/vg-toast-overlay-ref';
 
 

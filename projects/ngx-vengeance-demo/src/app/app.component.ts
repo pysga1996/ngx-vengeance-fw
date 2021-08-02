@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
-import {TreeNode, TreeNodeCheckboxEvent, TreeTableConfig} from 'ngx-vengeance-lib';
+import {VgTreeNode, VgTreeNodeCheckboxEvent, VgTreeTableConfig} from 'ngx-vengeance-lib';
 // import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 // import {TreeTableConfig} from "../../../ngx-vengeance-lib/src/lib/model/tree-table-config";
 // import {TreeNode} from "../../../ngx-vengeance-lib/src/lib/model/tree-node";
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   tempResults: any[] = [];
   tree: any[] = [];
   formatItem(item: any, level: number): any {
-    const node: TreeNode<any> = {
+    const node: VgTreeNode<any> = {
       data: {
         id: item.id,
         name: item.name,
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
     this.map[node.data.id] = node;
     return node;
   };
-  treeTableConfig!: TreeTableConfig;
-  map: { [key: string]: TreeNode<any> } = {};
+  treeTableConfig!: VgTreeTableConfig;
+  map: { [key: string]: VgTreeNode<any> } = {};
 
   constructor(private http: HttpClient) {
 
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
     this.tempResults = this.searchResults.filter(e => e.title.includes(event));
   }
 
-  logCheckedNode(event: TreeNodeCheckboxEvent) {
+  logCheckedNode(event: VgTreeNodeCheckboxEvent) {
     console.log(event);
   }
 }

@@ -1,57 +1,56 @@
 import {Inject, Injectable, Injector} from '@angular/core';
 import {Overlay, PositionStrategy} from '@angular/cdk/overlay';
-import {TOAST_DATA, VgToastData} from './vg-toast-data';
+import {VgToastData} from './vg-toast-data';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {TOAST_REF, VgToastRef} from './vg-toast-ref';
+import {VgToastOverlayRef} from './vg-toast-overlay-ref';
 import {VgToastComponent} from './vg-toast.component';
-import {RUNTIME_TOAST_CONF, TOAST_CONF, VgToastConfig} from './vg-toast.config';
+import {VgToastConfig} from './vg-toast.config';
+import {RUNTIME_TOAST_CONF, TOAST_CONF, TOAST_DATA, TOAST_OVERLAY_REF} from "./vg-toast.config";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VgToastService {
-  private lastToast!: VgToastRef;
+  private lastToast!: VgToastOverlayRef;
 
   constructor(private overlay: Overlay, private parentInjector: Injector,
               @Inject(TOAST_CONF) private toastConfig: VgToastConfig) {
   }
 
-  show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastRef {
-    const positionStrategy = this.getPositionStrategy(runtimeConfig);
-    const overlayRef = this.overlay.create({positionStrategy});
-
-    const toastRef = new VgToastRef(overlayRef);
+  show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastOverlayRef {
+    const config: VgToastConfig = {...this.toastConfig, ...runtimeConfig};
+    const positionStrategy = this.getPositionStrategy(config);
+    const overlayRef = this.overlay.create({
+      positionStrategy,
+      // height: config.size.height,
+      // width: config.size.width
+    });
+    const tmpToastOverlayRef = this.lastToast;
+    const toastRef = new VgToastOverlayRef(overlayRef);
     this.lastToast = toastRef;
+    this.lastToast.toastOverlayRefBefore = tmpToastOverlayRef;
 
     const injector = this.getInjector(data, toastRef, this.parentInjector, runtimeConfig);
     const toastPortal = new ComponentPortal(VgToastComponent, null, injector);
 
-    overlayRef.attach(toastPortal);
-
-    return toastRef;
+    const comp = overlayRef.attach(toastPortal);
+    this.lastToast.pushToastBeforeToLowerPosition();
+    return this.lastToast;
   }
 
-  getInjector(data: VgToastData, toastRef: VgToastRef, parentInjector: Injector, runtimeConfig?: VgToastConfig): Injector {
-    const tokens = new WeakMap();
-    tokens.set(TOAST_DATA, data);
-    tokens.set(TOAST_REF, toastRef);
-    tokens.set(RUNTIME_TOAST_CONF, runtimeConfig);
+  getInjector(data: VgToastData, toastRef: VgToastOverlayRef, parentInjector: Injector, runtimeConfig?: VgToastConfig): Injector {
     return Injector.create({
       providers: [
         {provide: TOAST_DATA, useValue: data},
-        {provide: TOAST_REF, useValue: toastRef},
+        {provide: TOAST_OVERLAY_REF, useValue: toastRef},
         {provide: RUNTIME_TOAST_CONF, useValue: runtimeConfig}
       ],
       parent: parentInjector
     });
   }
 
-  getPositionStrategy(runtimeConfig: VgToastConfig = {duration: 3000}): PositionStrategy {
-    const config = {...this.toastConfig, ...runtimeConfig};
+  getPositionStrategy(config: VgToastConfig = {duration: 3000}): PositionStrategy {
     const positionStrategy = this.overlay.position().global();
     if (config.position.top) {
-      // positionStrategy.top(config.position.top);
-      positionStrategy.top(this.getPosition(runtimeConfig));
+      positionStrategy.top(config.position.top);
     }
     if (config.position.right) {
       positionStrategy.right(config.position.right);
@@ -71,23 +70,17 @@ export class VgToastService {
     return positionStrategy;
   }
 
-  // getPositionStrategy(runtimeConfig?: ToastConfig): any {
-  //   return this.overlay.position()
-  //   .global()
-  //   .top(this.getPosition(runtimeConfig))
-  //   .centerHorizontally();
+  // calculateTopPosition(config: VgToastConfig): string {
+  //   // const topPosition = config.position.top;
+  //   // const lastToastIsVisible = this.lastToast && this.lastToast.isVisible();
+  //   // const position = lastToastIsVisible
+  //   //   ? this.lastToast.getPosition().bottom + 20
+  //   //   : topPosition;
+  //   // if (typeof position === 'number') {
+  //   //   return position + 'px';
+  //   // } else {
+  //   //   return position;
+  //   // }
+  //   return '2rem';
   // }
-
-  getPosition(config: VgToastConfig): string {
-    const topPosition = config.position.top;
-    const lastToastIsVisible = this.lastToast && this.lastToast.isVisible();
-    const position = lastToastIsVisible
-      ? this.lastToast.getPosition().bottom + 20
-      : topPosition;
-    if (typeof position === 'number') {
-      return position + 'px';
-    } else {
-      return position;
-    }
-  }
 }
