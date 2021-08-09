@@ -1,18 +1,19 @@
-# NgxVengeanceFw
+# NgxVengeanceLib
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
 ##Features
-1. Components:
-    - Tree Table
-    - High Performance Tree Table
-2. Inputs:
-    - Auto Input
-    - Number Input
-    - Currency Input
-3. Directives:
-    - Number Input
-    - Currency Input
+###1. Table:
+- Tree Table (deprecated)
+- Light Tree Table
+###3. Toast Service
+###2. Control:
+- Auto Input
+- Number Input
+- Currency Input
+###3. Directives:
+- Number Input
+- Currency Input
 
 ## Development server
 

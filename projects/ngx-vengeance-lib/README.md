@@ -1,23 +1,39 @@
 # NgxVengeanceLib
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
+
+##Features
+###1. Table:
+  - Tree Table (deprecated)
+  - Light Tree Table
+###3. Toast Service
+###2. Control:
+  - Auto Input
+  - Number Input
+  - Currency Input
+###3. Directives:
+  - Number Input
+  - Currency Input
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project ngx-vengeance-lib` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-vengeance-lib`.
-> Note: Don't forget to add `--project ngx-vengeance-lib` or else it will be added to the default project in your `angular.json` file. 
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
-Run `ng build ngx-vengeance-lib` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ngx-vengeance-lib`, go to the dist folder `cd dist/ngx-vengeance-lib` and run `npm publish`.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `ng test ngx-vengeance-lib` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 ## Further help
 

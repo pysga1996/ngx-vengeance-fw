@@ -10,7 +10,11 @@
   align-items: center;
   justify-content: space-around;
   padding: 0.5rem;
-  //border-bottom: 0.1rem solid;
+  border-top-left-radius: 0.3rem !important;
+  border-top-right-radius: 0.3rem !important;
+  color: inherit;
+  background-color: inherit;
+  filter: brightness(85%);
 }
 
 .vg-toast-body {
@@ -19,6 +23,10 @@
   position: relative;
   display: flex;
   padding: 0.5rem;
+  border-bottom-left-radius: 0.3rem !important;
+  border-bottom-right-radius: 0.3rem !important;
+  color: inherit;
+  background-color: inherit;
 }
 
 .vg-toast-progress-bar-container {

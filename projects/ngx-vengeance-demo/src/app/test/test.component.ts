@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {VgToastData, VgToastService } from 'projects/ngx-vengeance-lib/src/public-api';
-import {TOAST_TYPE} from "ngx-vengeance-lib";
-// import {VgToastData, VgToastService } from 'ngx-vengeance-lib';
+import {VgToastData, VgToastService, TOAST_TYPE } from 'projects/ngx-vengeance-lib/src/public-api';
+// import {VgToastData, VgToastService, TOAST_TYPE } from 'ngx-vengeance-lib';
 
 @Component({
   selector: 'app-test',
@@ -22,7 +21,7 @@ export class TestComponent implements OnInit {
       const data = new VgToastData();
       data.title = 'Test title';
       data.text = 'test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ' + count;
-      this.toastService.show(data, {type: TOAST_TYPE.INFO, duration: 5000});
+      this.toastService.show(data, {type: TOAST_TYPE.ERROR, duration: 0});
       count++;
     }, 1000);
   }
