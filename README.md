@@ -2,16 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
-##Features
-###1. Table:
+## Features
+### 1. Table:
 - Tree Table (deprecated)
 - Light Tree Table
-###3. Toast Service
-###2. Control:
+### 3. Toast Service
+### 4. Dialog Service
+### 2. Control:
 - Auto Input
-- Number Input
-- Currency Input
-###3. Directives:
+### 3. Directives:
 - Number Input
 - Currency Input
 

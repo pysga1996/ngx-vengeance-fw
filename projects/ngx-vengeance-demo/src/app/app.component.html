@@ -94,8 +94,16 @@
 
   <!-- Next Steps -->
   <h2>Next Steps</h2>
-  <vg-auto-input [searchResults]="tempResults" [nameField]="'title'" [valueField]="'id'"
-                 (onChangeText)="search($event)"></vg-auto-input>
+
+<!--  <form [formGroup]="testForm" >-->
+<!--    <input type="text" vgCurrencyInput formControlName="testNumber">-->
+<!--  </form>-->
+<!--  <span>{{testForm.get('testNumber')?.value || ''}}</span>-->
+<!--  <button (click)="log()">Log number</button>-->
+  <input type="text" vgCurrencyInput [(ngModel)]="testNumber">
+  <button (click)="log2()">Log number</button>
+<!--  <vg-auto-input [searchResults]="tempResults" [nameField]="'title'" [valueField]="'id'"-->
+<!--                 (onChangeText)="search($event)"></vg-auto-input>-->
 <!--  <vg-light-tree-table [ngStyle]="{width: '100%'}"-->
 <!--    [treeTableConfig]="treeTableConfig" [treeItems]="tree" [parentIdKey]="'parent'"-->
 <!--  ></vg-light-tree-table>-->

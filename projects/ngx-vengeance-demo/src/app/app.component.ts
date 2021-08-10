@@ -4,6 +4,7 @@ import * as TreeGen from "tree-json-generator";
 import {VgTreeNode, VgTreeNodeCheckboxEvent, VgTreeTableConfig} from 'ngx-vengeance-lib';
 import {TreeTableConfig} from "./high-performance-tree-table/tree-table-config";
 import {TreeNode} from "./high-performance-tree-table/tree-node";
+import {FormBuilder, FormGroup} from "@angular/forms";
 // import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 // import {TreeTableConfig} from "../../../ngx-vengeance-lib/src/lib/model/tree-table-config";
 // import {TreeNode} from "../../../ngx-vengeance-lib/src/lib/model/tree-node";
@@ -44,8 +45,12 @@ export class AppComponent implements OnInit {
   treeTableConfig!: VgTreeTableConfig;
   treeTableConfig2: TreeTableConfig | null = null;
   map: { [key: string]: VgTreeNode<any> } = {};
+  testNumber = 0;
+  testForm: FormGroup = this.fb.group({
+    testNumber: [null]
+  });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private fb: FormBuilder) {
 
   }
 
@@ -166,5 +171,15 @@ export class AppComponent implements OnInit {
 
   logCheckedNode(event: VgTreeNodeCheckboxEvent) {
     console.log(event);
+  }
+
+  log() {
+    // console.log(this.testNumber, typeof this.testNumber);
+    // this.testNumber = 5;
+    console.log(this.testForm.get('testNumber')?.value);
+  }
+
+  log2() {
+    console.log(this.testNumber, `type: ${typeof this.testNumber}`);
   }
 }
