@@ -1,13 +1,15 @@
 import {GlobalPositionStrategy, OverlayRef} from '@angular/cdk/overlay';
+import {VgToastService} from "./vg-toast.service";
 
 export class VgToastOverlayRef {
 
   toastOverlayRefBefore!: VgToastOverlayRef | null;
 
-  constructor(readonly overlayRef: OverlayRef) {
+  constructor(readonly overlayRef: OverlayRef, private toastService: VgToastService, private msg: string) {
   }
 
   close(): void {
+    this.toastService.msgPool.delete(this.msg);
     this.overlayRef.dispose();
   }
 

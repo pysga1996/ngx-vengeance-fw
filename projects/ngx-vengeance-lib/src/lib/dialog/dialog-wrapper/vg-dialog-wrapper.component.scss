@@ -1,0 +1,17 @@
+.modal-header h5 {
+  margin-bottom: 0 !important;
+}
+
+.modal-content {
+  border: 0.1rem solid white;
+}
+
+.modal-footer > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.vg-dialog-container {
+  background-color: white;
+  box-shadow: -5px 5px 10px 5px rgba(0, 0, 0, 0.40);
+}

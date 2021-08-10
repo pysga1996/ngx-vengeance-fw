@@ -11,7 +11,7 @@
     "patch-lib": "cd dist/ngx-vengeance-lib && npm version patch && cd ..",
     "login": "npm login",
     "publish": "cd dist/ngx-vengeance-lib && npm publish",
-    "install-lib-to-demo": "cd projects/ngx-vengeance-demo && npm install ../../dist/ngx-vengeance-lib/ngx-vengeance-lib-0.0.6.tgz && cd ../..",
+    "install-lib-to-demo": "cd projects/ngx-vengeance-demo && npm install ../../dist/ngx-vengeance-lib/ngx-vengeance-lib-0.0.7.tgz && cd ../..",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

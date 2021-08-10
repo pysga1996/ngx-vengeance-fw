@@ -1,21 +1,26 @@
 import {Inject, Injectable, Injector} from '@angular/core';
 import {Overlay, PositionStrategy} from '@angular/cdk/overlay';
-import {VgToastData} from './vg-toast-data';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {VgToastOverlayRef} from './vg-toast-overlay-ref';
 import {VgToastComponent} from './vg-toast.component';
-import {VgToastConfig} from './vg-toast.config';
+import {VgToastConfig, VgToastData} from './vg-toast.config';
 import {RUNTIME_TOAST_CONF, TOAST_CONF, TOAST_DATA, TOAST_OVERLAY_REF} from "./vg-toast.config";
 
 @Injectable()
 export class VgToastService {
   private lastToast!: VgToastOverlayRef;
+  public readonly msgPool: Set<string> = new Set();
 
   constructor(private overlay: Overlay, private parentInjector: Injector,
               @Inject(TOAST_CONF) private toastConfig: VgToastConfig) {
   }
 
-  show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastOverlayRef {
+  show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastOverlayRef | null {
+    if (!data?.text || this.msgPool.has(data.text)) {
+      return null;
+    } else {
+      this.msgPool.add(data.text);
+    }
     const config: VgToastConfig = {...this.toastConfig, ...runtimeConfig};
     const positionStrategy = this.getPositionStrategy(config);
     const overlayRef = this.overlay.create({
@@ -24,7 +29,7 @@ export class VgToastService {
       // width: config.size.width
     });
     const tmpToastOverlayRef = this.lastToast;
-    const toastRef = new VgToastOverlayRef(overlayRef);
+    const toastRef = new VgToastOverlayRef(overlayRef, this, data.text);
     this.lastToast = toastRef;
     this.lastToast.toastOverlayRefBefore = tmpToastOverlayRef;
 

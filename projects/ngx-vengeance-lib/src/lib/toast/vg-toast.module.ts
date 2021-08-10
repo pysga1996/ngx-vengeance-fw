@@ -1,4 +1,4 @@
-import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {VgToastComponent} from './vg-toast.component';
 import {VgToastService} from "./vg-toast.service";

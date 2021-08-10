@@ -1,5 +1,4 @@
-import {InjectionToken} from "@angular/core";
-import {VgToastData} from "./vg-toast-data";
+import {InjectionToken, TemplateRef} from "@angular/core";
 import {
   animate,
   AnimationTriggerMetadata,
@@ -39,7 +38,7 @@ export const TOAST_SIZE = {
   LARGE_DIALOG: {width: '75vw', height: '30rem'}
 };
 
-export type ToastAnimationState = 'default' | 'closing';
+export type VgToastAnimationState = 'default' | 'closing';
 
 export const TOAST_ANIMATION: {
   readonly fadeToast: AnimationTriggerMetadata;
@@ -53,6 +52,14 @@ export const TOAST_ANIMATION: {
     ),
   ]),
 };
+
+export interface VgToastData {
+  title?: string;
+  text?: string;
+  template?: TemplateRef<any>;
+  templateContext?: Object | null;
+}
+
 
 export interface VgToastConfig {
   position?: any;

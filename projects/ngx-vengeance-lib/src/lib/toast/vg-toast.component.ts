@@ -1,5 +1,4 @@
 import {Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
-import {VgToastData} from './vg-toast-data';
 import {VgToastOverlayRef} from './vg-toast-overlay-ref';
 import {
   RUNTIME_TOAST_CONF,
@@ -7,8 +6,8 @@ import {
   TOAST_CONF,
   TOAST_DATA,
   TOAST_OVERLAY_REF,
-  ToastAnimationState,
-  VgToastConfig
+  VgToastAnimationState,
+  VgToastConfig, VgToastData
 } from './vg-toast.config';
 import {AnimationEvent} from '@angular/animations';
 
@@ -20,7 +19,7 @@ import {AnimationEvent} from '@angular/animations';
 })
 export class VgToastComponent implements OnInit, OnDestroy {
 
-  animationState: ToastAnimationState = 'default';
+  animationState: VgToastAnimationState = 'default';
   intervalId: number = 0;
   progress: number = 0;
   toastBefore!: VgToastOverlayRef | null;
@@ -55,7 +54,7 @@ export class VgToastComponent implements OnInit, OnDestroy {
 
   onFadeFinished(event: AnimationEvent): void {
     const {toState} = event;
-    const isFadeOut = (toState as ToastAnimationState) === 'closing';
+    const isFadeOut = (toState as VgToastAnimationState) === 'closing';
     const itFinished = this.animationState === 'closing';
 
     if (isFadeOut && itFinished) {

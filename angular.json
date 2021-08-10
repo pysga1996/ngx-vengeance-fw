@@ -28,7 +28,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/ngx-vengeance-demo/src/favicon.ico",
-              "projects/ngx-vengeance-demo/src/assets"
+              "projects/ngx-vengeance-demo/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/ngx-vengeance-lib/assets",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "projects/ngx-vengeance-demo/src/styles.scss"

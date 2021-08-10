@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
 import {VgTreeNode, VgTreeNodeCheckboxEvent, VgTreeTableConfig} from 'ngx-vengeance-lib';
+import {TreeTableConfig} from "./high-performance-tree-table/tree-table-config";
+import {TreeNode} from "./high-performance-tree-table/tree-node";
 // import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
 // import {TreeTableConfig} from "../../../ngx-vengeance-lib/src/lib/model/tree-table-config";
 // import {TreeNode} from "../../../ngx-vengeance-lib/src/lib/model/tree-node";
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit {
   searchResults: any[] = [];
   tempResults: any[] = [];
   tree: any[] = [];
+  units: any[] = [];
   formatItem(item: any, level: number): any {
     const node: VgTreeNode<any> = {
       data: {
@@ -39,6 +42,7 @@ export class AppComponent implements OnInit {
     return node;
   };
   treeTableConfig!: VgTreeTableConfig;
+  treeTableConfig2: TreeTableConfig | null = null;
   map: { [key: string]: VgTreeNode<any> } = {};
 
   constructor(private http: HttpClient) {
@@ -70,6 +74,50 @@ export class AppComponent implements OnInit {
         {
           title: 'Email',
           key: 'id'
+        }
+      ]
+    };
+    this.treeTableConfig2 = {
+      columns: [
+        {
+          title: 'Is registered?',
+          key: 'registered',
+          type: 'CHECKBOX',
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
+          templateRef: null
+        },
+        {
+          title: 'ID',
+          key: 'id',
+          type: 'TEXT',
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
+          templateRef: null
+        },
+        {
+          title: 'Name',
+          key: 'name',
+          type: 'TEXT',
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
+          templateRef: null
+        },
+        {
+          title: 'Age',
+          key: 'age',
+          type: 'TEXT',
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
+          templateRef: null
+        },
+        {
+          title: 'Email',
+          key: 'id',
+          type: 'TEXT',
+          customClass: 'd-flex justify-content-center',
+          checkboxVerticalCascade: true,
+          templateRef: null
         }
       ]
     };
@@ -106,6 +154,10 @@ export class AppComponent implements OnInit {
         this.searchResults = next;
         // console.log(this.searchResults);
       });
+    this.http.get("assets/units.json").subscribe((data: any) =>{
+      console.log(data);
+      this.units = data;
+    })
   }
 
   search(event: string) {

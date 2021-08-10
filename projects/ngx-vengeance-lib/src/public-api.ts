@@ -17,7 +17,11 @@ export * from './lib/toast/vg-toast.component';
 export * from './lib/toast/vg-toast.service';
 export * from './lib/toast/vg-toast.module';
 export * from './lib/toast/vg-toast.config';
-export * from './lib/toast/vg-toast-data';
 export * from './lib/toast/vg-toast-overlay-ref';
-
-
+export * from './lib/dialog/vg-dialog-config';
+export * from './lib/dialog/vg-dialog.module';
+export * from './lib/dialog/vg-dialog.service';
+export * from './lib/dialog/vg-dialog-overlay-ref'
+export * from './lib/dialog/message-dialog/vg-message-dialog.component'
+export * from './lib/dialog/confirm-dialog/vg-confirm-dialog.component'
+export * from './lib/dialog/dialog-wrapper/vg-dialog-wrapper.component'

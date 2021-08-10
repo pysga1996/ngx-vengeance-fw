@@ -1,0 +1,99 @@
+[
+  {
+    "data": {
+      "id": "7ad4f7f1-481d-475d-bc84-f00c2332c9aa",
+      "unit_code": "f361",
+      "parent_id": "0288cdce-957c-4875-8821-3fe3b3179c2d"
+    },
+    "children": [
+      {
+        "data": {
+          "id": "80c82f68-5396-418c-9699-6a541ce3324b",
+          "unit_code": "e250",
+          "parent_id": "7ad4f7f1-481d-475d-bc84-f00c2332c9aa"
+        },
+        "children": [],
+        "expanded": true,
+        "isDisabled": {},
+        "isFixed": {},
+        "sequence": 2,
+        "level": 1,
+        "paddingBlock": {
+          "0": true,
+          "1": true,
+          "2": true
+        },
+        "hidden": true
+      },
+      {
+        "data": {
+          "id": "c32b309c-3119-431f-b5a9-85120050b1df",
+          "unit_code": "e236",
+          "parent_id": "7ad4f7f1-481d-475d-bc84-f00c2332c9aa"
+        },
+        "children": [
+          {
+            "data": {
+              "id": "e2236dc6-961d-45c2-bb77-cdf88aa611d2",
+              "unit_code": "d61",
+              "parent_id": "c32b309c-3119-431f-b5a9-85120050b1df"
+            },
+            "children": [],
+            "expanded": true,
+            "isDisabled": {},
+            "isFixed": {},
+            "sequence": 4,
+            "level": 2,
+            "paddingBlock": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true
+            },
+            "hidden": true
+          },
+          {
+            "data": {
+              "id": "72ab9c10-0798-430d-95d8-ab44708a3829",
+              "unit_code": "t22",
+              "parent_id": "c32b309c-3119-431f-b5a9-85120050b1df"
+            },
+            "children": [],
+            "expanded": true,
+            "isDisabled": {},
+            "isFixed": {},
+            "sequence": 5,
+            "level": 2,
+            "paddingBlock": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true
+            },
+            "hidden": true
+          }
+        ],
+        "expanded": true,
+        "isDisabled": {},
+        "isFixed": {},
+        "sequence": 3,
+        "level": 1,
+        "paddingBlock": {
+          "0": true,
+          "1": true,
+          "2": true
+        },
+        "hidden": true
+      }
+    ],
+    "expanded": false,
+    "isDisabled": {},
+    "isFixed": {},
+    "paddingBlock": {
+      "0": true,
+      "1": true
+    },
+    "sequence": 1,
+    "level": 0
+  }
+]
