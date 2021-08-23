@@ -1,0 +1,13 @@
+<p *ngIf="control && control.touched && control.errors">
+  <ng-container *ngIf="control.errors?.required; else notRequiredBlock">
+    <ngb-alert [type]="'danger'" [dismissible]="false" [ngClass]="'mt-1'">
+      <small>{{'required' | vgError:label:control.errors.required}}</small>
+    </ngb-alert>
+  </ng-container>
+  <ng-template #notRequiredBlock>
+    <ngb-alert [type]="'danger'" [dismissible]="false" [ngClass]="'mt-1'">
+      <small *ngFor="let error of ($any(control.errors) | keyvalue)"
+             class="d-block">{{$any(error.key) | vgError:label:$any(error.value)}}</small>
+    </ngb-alert>
+  </ng-template>
+</p>

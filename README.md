@@ -4,15 +4,52 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Features
 ### 1. Table:
+
 - Tree Table (deprecated)
 - Light Tree Table
-### 3. Toast Service
-### 4. Dialog Service
-### 2. Control:
+
+### 2. Toast Service
+
+- Success Toast
+- Error Toast
+- Warning Toast
+- Info Toast
+- Custom Toast
+
+### 3. Dialog Service
+
+- Message Dialog (success, error, warning, info, custom)
+- Confirm Dialog
+- Custom Dialog
+
+### 4. Loading Service (global loading)
+
+### 5. Control:
+
 - Auto Input
-### 3. Directives:
+- Error Section
+```angular2html
+    // register error section in app module provider
+    VgControlModule.forRoot({
+      provide: VgErrorDictService,
+      useFactory: (translateService: TranslateService) => {
+        const vgErrorDictService: VgErrorDictService = new VgErrorDictService();
+        vgErrorDictService.register('validation.message.', translateService, 'instant');
+        return vgErrorDictService;
+      },
+      deps: [TranslateService]
+    })
+```
+
+### 6. Directives:
+
 - Number Input
 - Currency Input
+- Focus First Invalid Input (Form)
+
+### 7. Utilities:
+
+- Upload Progress
 
 ## Development server
 

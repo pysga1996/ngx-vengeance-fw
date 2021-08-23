@@ -3,16 +3,26 @@ import {Overlay, PositionStrategy} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {VgToastOverlayRef} from './vg-toast-overlay-ref';
 import {VgToastComponent} from './vg-toast.component';
-import {VgToastConfig, VgToastData} from './vg-toast.config';
-import {RUNTIME_TOAST_CONF, TOAST_CONF, TOAST_DATA, TOAST_OVERLAY_REF} from "./vg-toast.config";
+import {
+  RUNTIME_TOAST_CONF,
+  TOAST_CONF,
+  TOAST_DATA,
+  TOAST_OVERLAY_REF,
+  TOAST_TYPE,
+  VgToastConfig,
+  VgToastData
+} from './vg-toast.config';
+import {SoundUtil} from "../util/sound.util";
 
 @Injectable()
 export class VgToastService {
   private lastToast!: VgToastOverlayRef;
   public readonly msgPool: Set<string> = new Set();
+  initialToastSounds = ['default', 'chord', 'battery-critical', 'error', 'balloon'];
 
   constructor(private overlay: Overlay, private parentInjector: Injector,
               @Inject(TOAST_CONF) private toastConfig: VgToastConfig) {
+    SoundUtil.initSound(this.initialToastSounds, 'toastSound');
   }
 
   show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastOverlayRef | null {
@@ -22,12 +32,14 @@ export class VgToastService {
       this.msgPool.add(data.text);
     }
     const config: VgToastConfig = {...this.toastConfig, ...runtimeConfig};
+    SoundUtil.playSound(config.sound);
     const positionStrategy = this.getPositionStrategy(config);
     const overlayRef = this.overlay.create({
       positionStrategy,
       // height: config.size.height,
       // width: config.size.width
     });
+
     const tmpToastOverlayRef = this.lastToast;
     const toastRef = new VgToastOverlayRef(overlayRef, this, data.text);
     this.lastToast = toastRef;
@@ -37,6 +49,7 @@ export class VgToastService {
     const toastPortal = new ComponentPortal(VgToastComponent, null, injector);
 
     const comp = overlayRef.attach(toastPortal);
+    console.debug('Toast component: ', comp);
     this.lastToast.pushToastBeforeToLowerPosition();
     return this.lastToast;
   }
@@ -75,17 +88,35 @@ export class VgToastService {
     return positionStrategy;
   }
 
-  // calculateTopPosition(config: VgToastConfig): string {
-  //   // const topPosition = config.position.top;
-  //   // const lastToastIsVisible = this.lastToast && this.lastToast.isVisible();
-  //   // const position = lastToastIsVisible
-  //   //   ? this.lastToast.getPosition().bottom + 20
-  //   //   : topPosition;
-  //   // if (typeof position === 'number') {
-  //   //   return position + 'px';
-  //   // } else {
-  //   //   return position;
-  //   // }
-  //   return '2rem';
-  // }
+  success(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+    this.show(data, {
+      ...runtimeConfig,
+      type: TOAST_TYPE.SUCCESS,
+      sound: 'chord'
+    });
+  }
+
+  error(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+    this.show(data, {
+      ...runtimeConfig,
+      type: TOAST_TYPE.ERROR,
+      sound: 'battery-critical'
+    });
+  }
+
+  warning(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+    this.show(data, {
+      ...runtimeConfig,
+      type: TOAST_TYPE.WARNING,
+      sound: 'error'
+    });
+  }
+
+  info(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+    this.show(data, {
+      ...runtimeConfig,
+      type: TOAST_TYPE.INFO,
+      sound: 'balloon'
+    });
+  }
 }

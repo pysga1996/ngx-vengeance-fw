@@ -1,0 +1,13 @@
+{
+  "validation": {
+    "message": {
+      "required": "{{label}} is required",
+      "max": "Maximum value allowed of {{label}} is {{max}}, currently {{actual}}",
+      "min": "Minimum value allowed of {{label}} is {{min}}, currently {{actual}}",
+      "maxlength": "Maximum value allowed of {{label}} is {{requiredLength}}, currently {{actualLength}}",
+      "minlength": "Minimum value allowed of {{label}} is {{requiredLength}}, currently {{actualLength}}",
+      "pattern": "Value '{{actualValue}}' is not match format {{requiredPattern}}",
+      "email": "Invalid email"
+    }
+  }
+}

@@ -1,8 +1,10 @@
-
+:host { display: block; }
 
 .autocomplete {
   position: relative;
   display: inline-block;
+  width: 100%;
+  color: black;
 }
 
 .autocomplete-items {

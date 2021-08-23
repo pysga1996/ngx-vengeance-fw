@@ -73,16 +73,6 @@ export interface VgToastConfig {
   class?: string | string[] | Set<string> | {
     [klass: string]: any;
   };
+  sound?: string;
 }
-
-export const defaultToastConfig: VgToastConfig = {
-  position: TOAST_POSITION.TOP_CENTER,
-  size: TOAST_SIZE.SMALL_DIALOG,
-  animation: {
-    fadeOut: 2500,
-    fadeIn: 300,
-  },
-  duration: 2000,
-  type: TOAST_TYPE.NORMAL
-};
 

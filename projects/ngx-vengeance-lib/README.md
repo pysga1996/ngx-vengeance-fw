@@ -18,20 +18,38 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### 3. Dialog Service
 
-  - Message Dialog
+  - Message Dialog (success, error, warning, info, custom)
   - Confirm Dialog
   - Custom Dialog
 
-### 4. Control:
+### 4. Loading Service (global loading)
+
+### 5. Control:
 
   - Auto Input
+  - Error Section
+```angular2html
+    // register error section in app module provider
+    VgControlModule.forRoot({
+      provide: VgErrorDictService,
+      useFactory: (translateService: TranslateService) => {
+        const vgErrorDictService: VgErrorDictService = new VgErrorDictService();
+        vgErrorDictService.register('validation.message.', translateService, 'instant');
+        return vgErrorDictService;
+      },
+      deps: [TranslateService]
+    })
+```
+
+### 6. Directives:
+
   - Number Input
   - Currency Input
+  - Focus First Invalid Input (Form)
 
-### 5. Directives:
+### 7. Utilities:
 
-  - Number Input
-  - Currency Input
+  - Upload Progress
 
 ## Development server
 

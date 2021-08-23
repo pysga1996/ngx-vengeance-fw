@@ -4,6 +4,9 @@
 
 export * from './lib/control/vg-control.module';
 export * from './lib/control/auto-input/vg-auto-input.component';
+export * from './lib/control/error-section/vg-error-section.component'
+export * from './lib/control/error-section/vg-error-dict.service'
+export * from './lib/control/error-section/vg-error-message.pipe'
 export * from './lib/tree/vg-tree-table.module';
 export * from './lib/tree/tree-table/vg-tree-table.component';
 export * from './lib/tree/tree-table/tree-table-item/vg-tree-table-item.component';
@@ -25,8 +28,15 @@ export * from './lib/dialog/vg-dialog-overlay-ref'
 export * from './lib/dialog/message-dialog/vg-message-dialog.component'
 export * from './lib/dialog/confirm-dialog/vg-confirm-dialog.component'
 export * from './lib/dialog/dialog-wrapper/vg-dialog-wrapper.component'
-export * from './lib/directives/vg-directives.module'
-export * from './lib/directives/vg-currency-input.directive'
-export * from './lib/directives/vg-number-only.directive'
-export * from './lib/pipe/vg-pipes.module'
-export * from './lib/pipe/currenry.pipe'
+export * from './lib/directive/vg-directives.module'
+export * from './lib/directive/vg-currency-input.directive'
+export * from './lib/directive/vg-number-only.directive'
+export * from './lib/directive/vg-focus-first-invalid.directive'
+export * from './lib/pipe/vg-pipe.module'
+export * from './lib/pipe/vg-currenry.pipe'
+export * from './lib/loading/vg-loader.module'
+export * from './lib/loading/vg-loader.service'
+export * from './lib/loading/vg-loader.component'
+export * from './lib/util/vg-util.module'
+export * from './lib/util/upload-progress/vg-upload-progress.component'
+

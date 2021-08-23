@@ -8,22 +8,25 @@ import {DIALOG_REF, VgDialogOverlayRef} from './vg-dialog-overlay-ref';
 import {
   DIALOG_DATA,
   DIALOG_OPTIONS,
-  VgDialogOptions,
+  DIALOG_SIZE,
   VgDialogData,
-  DIALOG_SIZE
+  VgDialogOptions
 } from "./vg-dialog-config";
+import {SoundUtil} from "../util/sound.util";
 
 @Injectable()
 export class VgDialogService {
 
   private lastDialogRef!: VgDialogOverlayRef;
+  initialDialogSounds = ['info-bar', 'exclamation', 'critical-stop', 'chimes', 'notify'];
 
   constructor(private parentInjector: Injector, private overlay: Overlay,
               @Inject(DIALOG_DATA) private dialogData: VgDialogData,
               @Inject(DIALOG_OPTIONS) private dialogOptions: VgDialogOptions) {
+    SoundUtil.initSound(this.initialDialogSounds, 'dialogSound');
   }
 
-  show(content: ComponentType<any>, dialogData?: VgDialogData, dialogOptions?: VgDialogOptions): VgDialogOverlayRef {
+  showDialog(content: ComponentType<any>, dialogData?: VgDialogData, dialogOptions?: VgDialogOptions): VgDialogOverlayRef {
     const options = {...this.dialogOptions, ...dialogOptions};
     const positionStrategy = this.getPositionStrategy(options);
     const overlayRef = this.overlay.create({
@@ -84,8 +87,8 @@ export class VgDialogService {
       },
       iconClass: 'text-warning fa fa-question-circle',
     };
-    this.playSound('notify');
-    this.lastDialogRef = this.show(VgConfirmDialogComponent,
+    SoundUtil.playSound('notify');
+    this.lastDialogRef = this.showDialog(VgConfirmDialogComponent,
       initialState,
       {
         backdropClass: className,
@@ -96,26 +99,7 @@ export class VgDialogService {
     return (this.lastDialogRef.componentRef as VgConfirmDialogComponent).onClose as Observable<boolean>;
   }
 
-  public playSound(sound: string, path = 'assets/media/sound'): void {
-    const audioElement = document.createElement('audio');
-    if (navigator.userAgent.match('Firefox/')) {
-      audioElement.setAttribute('src', path + '/' + sound + '.ogg');
-    } else {
-      audioElement.setAttribute('src', path + '/' + sound + '.mp3');
-    }
-
-    // audioElement.addEventListener('load', () => {
-    //   audioElement.play().then(() => {
-    //     console.log(`Play ${sound}`);
-    //   });
-    // }, true);
-    // audioElement.pause();
-    audioElement.play().then(() => {
-      console.log(`Play ${sound}`);
-    });
-  }
-
-  public showMessage(title: string = 'Dialog title', message: string = 'Dialog message',
+  public show(title: string = 'Dialog title', message: string = 'Dialog message',
                      iconClass?: string, className?: string, imageUrl?: string, sound: string = 'balloon'): Observable<boolean> {
     const initialState: VgDialogData = {
       title,
@@ -129,8 +113,8 @@ export class VgDialogService {
       iconClass,
       imageUrl
     };
-    this.playSound(sound);
-    this.lastDialogRef = this.show(VgMessageDialogComponent,
+    SoundUtil.playSound(sound);
+    this.lastDialogRef = this.showDialog(VgMessageDialogComponent,
       initialState,
       {
         // keyboard: false,
@@ -141,23 +125,23 @@ export class VgDialogService {
     return (this.lastDialogRef.componentRef as VgMessageDialogComponent).onClose as Observable<boolean>;
   }
 
-  public showInfoMessage(title?: string, message?: string, className?: string): Observable<boolean> {
-    return this.showMessage(title, message, 'text-info bi bi-question-circle-fill',
+  public info(title?: string, message?: string, className?: string): Observable<boolean> {
+    return this.show(title, message, 'text-info bi bi-question-circle-fill',
       className, undefined, 'info-bar');
   }
 
-  public showWarningMessage(title?: string, message?: string, className?: string): Observable<boolean> {
-    return this.showMessage(title, message, 'text-warning bi bi-exclamation-triangle-fill',
+  public warning(title?: string, message?: string, className?: string): Observable<boolean> {
+    return this.show(title, message, 'text-warning bi bi-exclamation-triangle-fill',
       className, undefined, 'exclamation');
   }
 
-  public showErrorMessage(title?: string, message?: string, className?: string): Observable<boolean> {
-    return this.showMessage(title, message, 'text-danger bi bi-exclamation-circle-fill',
+  public error(title?: string, message?: string, className?: string): Observable<boolean> {
+    return this.show(title, message, 'text-danger bi bi-exclamation-circle-fill',
       className, undefined, 'critical-stop');
   }
 
-  public showSuccessMessage(title?: string, message?: string, className?: string): Observable<boolean> {
-    return this.showMessage(title, message, 'text-success bi bi-check-circle-fill',
+  public success(title?: string, message?: string, className?: string): Observable<boolean> {
+    return this.show(title, message, 'text-success bi bi-check-circle-fill',
       className, undefined, 'chimes');
   }
 }

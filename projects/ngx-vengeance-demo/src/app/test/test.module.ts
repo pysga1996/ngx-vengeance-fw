@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TestComponent } from './test.component';
-import {VgDialogModule, VgToastModule } from 'ngx-vengeance-lib';
-// import {VgDialogModule, VgToastModule} from 'projects/ngx-vengeance-lib/src/public-api';
-// import { VgToastModule } from 'ngx-vengeance-lib';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TestComponent} from './test.component';
+// import {VgDialogModule, VgToastModule } from 'ngx-vengeance-lib';
+import {VgDialogModule, VgToastModule} from 'projects/ngx-vengeance-lib/src/public-api';
 
 
 @NgModule({
@@ -15,7 +14,7 @@ import {VgDialogModule, VgToastModule } from 'ngx-vengeance-lib';
   ],
   imports: [
     CommonModule,
-    VgToastModule,
+    VgToastModule.forRoot(),
     VgDialogModule.forRoot()
   ]
 })

@@ -37,9 +37,9 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
   writeValue(obj: any): void {
     const numberVal = isNaN(Number(obj)) ? 0 : Number(obj);
     this.el.value = numberVal.toLocaleString(this.currentLocale);
-    // setTimeout(() => {
-    //   this.onChange(numberVal);
-    // }, 0);
+    setTimeout(() => {
+      this.onChange(numberVal);
+    }, 0);
   }
 
   registerOnChange(fn: any): void {
@@ -51,11 +51,8 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    // this.thousandSeparator
-    // this.currentLocale
-    console.log(navigator.language);
     if (navigator.language) {
-      this.currentLocale = 'en-US';
+      this.currentLocale = navigator.language;
     }
     const testStr = 1000;
     const testFormattedStr = testStr.toLocaleString(this.currentLocale);
@@ -77,6 +74,9 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
   }
 
   renderUpdatedValue(el: HTMLInputElement): void {
+    if (el.type !== 'text') {
+      return;
+    }
     clearTimeout(this.delay);
     this.delay = setTimeout((el: any) => {
       let start = el.selectionStart;

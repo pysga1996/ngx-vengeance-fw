@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as TreeGen from "tree-json-generator";
-import {VgTreeNode, VgTreeNodeCheckboxEvent, VgTreeTableConfig} from 'ngx-vengeance-lib';
 import {TreeTableConfig} from "./high-performance-tree-table/tree-table-config";
-import {TreeNode} from "./high-performance-tree-table/tree-node";
-import {FormBuilder, FormGroup} from "@angular/forms";
-// import {TreeNodeCheckboxEvent} from "../../../ngx-vengeance-lib/src/lib/model/tree-node-checkbox-event";
-// import {TreeTableConfig} from "../../../ngx-vengeance-lib/src/lib/model/tree-table-config";
-// import {TreeNode} from "../../../ngx-vengeance-lib/src/lib/model/tree-node";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {
+  VgTreeNode,
+  VgTreeNodeCheckboxEvent,
+  VgTreeTableConfig
+} from 'projects/ngx-vengeance-lib/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +47,10 @@ export class AppComponent implements OnInit {
   map: { [key: string]: VgTreeNode<any> } = {};
   testNumber = 0;
   testForm: FormGroup = this.fb.group({
-    testNumber: [null]
+    testAuto: ['lozzz', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+    testNumber: [10000000000, [Validators.required, Validators.min(10), Validators.max(1000000)]],
+    testText: [null, [Validators.required, Validators.minLength(5), Validators.email]],
+    testTextArea: [null, [Validators.required]]
   });
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
@@ -174,12 +177,21 @@ export class AppComponent implements OnInit {
   }
 
   log() {
+    console.log(this.testForm);
+    if (this.testForm.invalid) {
+      return;
+    }
     // console.log(this.testNumber, typeof this.testNumber);
     // this.testNumber = 5;
-    console.log(this.testForm.get('testNumber')?.value);
+    console.log(this.testForm.value);
   }
 
   log2() {
     console.log(this.testNumber, `type: ${typeof this.testNumber}`);
   }
+
+  submitForm(form: FormGroup) {
+    form.markAllAsTouched();
+  }
+
 }

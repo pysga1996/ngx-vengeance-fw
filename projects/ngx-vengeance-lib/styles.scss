@@ -1,0 +1,14 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~@angular/cdk/overlay-prebuilt.css";
+@import "~@angular/cdk/overlay/index";
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border-color: red !important;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input.ng-invalid.ng-touched:focus, , textarea.ng-invalid.ng-touched:focus {
+  box-shadow: 0 0 0 0.2rem rgb(250, 1, 1, 25%) !important;
+}
+

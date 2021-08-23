@@ -1,0 +1,13 @@
+{
+  "validation": {
+    "message": {
+      "required": "{{label}} là bắt buộc",
+      "max": "Giá trị tối đa cho phép của {{label}} là {{max}}, hiện tại {{actual}}",
+      "min": "Giá trị tối thiểu cho phép {{label}} là {{min}}, hiện tại {{actual}}",
+      "maxlength": "Số ký tự tối đa cho phép của {{label}} là {{requiredLength}}, hiện tại {{actualLength}}",
+      "minlength": "Số ký tự tối thiểu cho phép của {{label}} là {{requiredLength}}, hiện tại {{actualLength}}",
+      "pattern": "Giá trị {{actualValue}} không đúng định dạng {{requiredPattern}}",
+      "email": "Email không đúng định dạng"
+    }
+  }
+}
