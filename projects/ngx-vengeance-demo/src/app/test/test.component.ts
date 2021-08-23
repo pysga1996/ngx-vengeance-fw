@@ -1,45 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // import {TOAST_TYPE, VgToastData, VgToastService, VgDialogData, VgDialogService} from 'ngx-vengeance-lib';
 import {
   VgDialogData,
   VgDialogService,
   VgLoaderService,
   VgToastData,
-  VgToastService
+  VgToastService,
 } from 'projects/ngx-vengeance-lib/src/public-api';
 
 // import {VgToastData, VgToastService, TOAST_TYPE } from 'ngx-vengeance-lib';
 
 @Component({
-  selector: 'app-test',
+  selector: 'vg-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  styleUrls: ['./test.component.scss'],
 })
 export class TestComponent implements OnInit {
-
-  mapType: any = {
+  mapType: { [key: string]: string } = {
     '0': 'success',
     '1': 'error',
     '2': 'warning',
     '3': 'info',
     '4': 'show',
-  }
+  };
   counter = 0;
   es = new EventSource('https://localhost:8095/delta-notification/lol/news');
 
-  constructor(private toastService: VgToastService, private dialogService: VgDialogService, private loaderService: VgLoaderService) {
-  }
+  constructor(
+    private toastService: VgToastService,
+    private dialogService: VgDialogService,
+    private loaderService: VgLoaderService
+  ) {}
 
   ngOnInit(): void {
-    this.es.onopen = event => {
+    this.es.onopen = (event) => {
       console.log(`Opened: `, event);
-    }
-    this.es.onmessage = event => {
+    };
+    this.es.onmessage = (event) => {
       console.log(`Message: `, event);
-    }
-    this.es.onerror = event => {
+    };
+    this.es.onerror = (event) => {
       console.log(`Error: `, event);
-    }
+    };
   }
 
   shutdownSse(): void {
@@ -55,10 +57,14 @@ export class TestComponent implements OnInit {
       }
       const data: VgDialogData = {
         title: 'Test title',
-        message: 'test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl '
+        message:
+          'test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ',
       };
-      // @ts-ignore
-      this.dialogService[this.mapType[`${count}`]](data);
+      (
+        this.toastService[(this.mapType as never)[`${count}`]] as (
+          data: VgToastData
+        ) => void
+      )(data);
       count++;
     }, 3000);
   }
@@ -72,29 +78,31 @@ export class TestComponent implements OnInit {
       }
       const data: VgToastData = {
         title: 'Test title',
-        text: `test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ${count}`
-      }
-      // @ts-ignore
-      this.toastService[this.mapType[`${count}`]](data);
+        text: `test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ${count}`,
+      };
+      (
+        this.toastService[(this.mapType as never)[`${count}`]] as (
+          data: VgToastData
+        ) => void
+      )(data);
       count++;
     }, 1500);
   }
 
-  showDialog(name: string) {
-    // @ts-ignore
-    this.dialogService[name]();
+  showDialog(name: string): void {
+    (this.dialogService[name as never] as () => void)();
   }
 
-  showToast(name: string) {
+  showToast(name: string): void {
     const data: VgToastData = {
       title: 'Test title',
-      text: `test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ${++this.counter}`
-    }
-    // @ts-ignore
-    this.toastService[name](data);
+      text: `test vcl vcl vcl vclv vcvcvlcv vclvc dsd daljd fdj asdias dasijd asdkjnha asd vlcv cvlcv cvl ${++this
+        .counter}`,
+    };
+    ((this.toastService as never)[name] as (data: VgToastData) => void)(data);
   }
 
-  loading(value: boolean) {
+  loading(value: boolean): void {
     this.loaderService.loading(value);
   }
 }

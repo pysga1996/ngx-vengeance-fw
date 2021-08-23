@@ -5,36 +5,42 @@ import {
   HostListener,
   Input,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive({
   selector: '[vgCurrencyInput]',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR, useExisting:
-      forwardRef(() => VgCurrencyInputDirective),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => VgCurrencyInputDirective),
+      multi: true,
+    },
+  ],
 })
 export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
-
-  @Input() currentLocale: string = 'vi-VN';
+  @Input() currentLocale = 'vi-VN';
   private el!: HTMLInputElement;
-  private delay: any;
-  private thousandSeparator: RegExp = /(\.)/g;
+  private delay!: number;
+  private thousandSeparator = /(\.)/g;
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef<HTMLInputElement>) {
+  constructor(
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLInputElement>
+  ) {
     this.el = elementRef.nativeElement;
   }
 
-  onChange = (_: any) => {
+  onChange = (val: number): void => {
+    console.debug(val);
   };
 
-  onTouched = () => {
+  onTouched = (): void => {
+    console.debug();
   };
 
-  writeValue(obj: any): void {
+  writeValue(obj: never): void {
     const numberVal = isNaN(Number(obj)) ? 0 : Number(obj);
     this.el.value = numberVal.toLocaleString(this.currentLocale);
     setTimeout(() => {
@@ -42,11 +48,11 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
     }, 0);
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: never): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: never): void {
     this.onTouched = fn;
   }
 
@@ -69,7 +75,7 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
     this.renderUpdatedValue(el);
   }
 
-  updateNumberValue(val: number) {
+  updateNumberValue(val: number): void {
     this.onChange(val);
   }
 
@@ -78,23 +84,37 @@ export class VgCurrencyInputDirective implements OnInit, ControlValueAccessor {
       return;
     }
     clearTimeout(this.delay);
-    this.delay = setTimeout((el: any) => {
-      let start = el.selectionStart;
-      const end = el.selectionEnd;
-      const initialVal: string = el.value;
-      const initialDotCount = initialVal.substring(0, start).match(this.thousandSeparator)?.length || 0;
-      const strWithNoComma = el.value.toString().replace(this.thousandSeparator, '');
-      const strDigitOnly = strWithNoComma.replace(/\D/g, '');
-      const numberVal = Number(strDigitOnly);
-      const newValue = numberVal.toLocaleString(this.currentLocale);
-      const modifiedDotCount: number = newValue.substring(0, start).match(this.thousandSeparator)?.length || 0;
-      // console.debug(initialDotCount, modifiedDotCount, el.selectionStart, el.selectionEnd);
-      el.value = newValue;
-      start += modifiedDotCount - initialDotCount;
-      this.renderer.setProperty(el, 'selectionStart', start);
-      this.renderer.setProperty(el, 'selectionEnd', start > end ? start : end);
-      this.updateNumberValue(numberVal);
-      clearTimeout(this.delay);
-    }, 200, el);
+    this.delay = setTimeout(
+      (el: HTMLInputElement) => {
+        let start = el.selectionStart || 0;
+        const end = el.selectionEnd || 0;
+        const initialVal: string = el.value;
+        const initialDotCount =
+          initialVal.substring(0, start).match(this.thousandSeparator)
+            ?.length || 0;
+        const strWithNoComma = el.value
+          .toString()
+          .replace(this.thousandSeparator, '');
+        const strDigitOnly = strWithNoComma.replace(/\D/g, '');
+        const numberVal = Number(strDigitOnly);
+        const newValue = numberVal.toLocaleString(this.currentLocale);
+        const modifiedDotCount: number =
+          newValue.substring(0, start).match(this.thousandSeparator)?.length ||
+          0;
+        // console.debug(initialDotCount, modifiedDotCount, el.selectionStart, el.selectionEnd);
+        el.value = newValue;
+        start += modifiedDotCount - initialDotCount;
+        this.renderer.setProperty(el, 'selectionStart', start);
+        this.renderer.setProperty(
+          el,
+          'selectionEnd',
+          start > end ? start : end
+        );
+        this.updateNumberValue(numberVal);
+        clearTimeout(this.delay);
+      },
+      200,
+      el
+    );
   }
 }

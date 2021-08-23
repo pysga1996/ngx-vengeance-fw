@@ -5,19 +5,19 @@ import {
   Inject,
   OnInit,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import {Subject} from 'rxjs';
-import {DIALOG_REF, VgDialogOverlayRef} from '../vg-dialog-overlay-ref';
+import { Subject } from 'rxjs';
+import { DIALOG_REF, VgDialogOverlayRef } from '../vg-dialog-overlay-ref';
 import {
   DIALOG_ANIMATION,
   DIALOG_DATA,
   DIALOG_OPTIONS,
   VgDialogAnimationState,
   VgDialogData,
-  VgDialogOptions
-} from "../vg-dialog-config";
-import {VgToastAnimationState} from "../../toast/vg-toast.config";
+  VgDialogOptions,
+} from '../vg-dialog-config';
+import { VgToastAnimationState } from '../../toast/vg-toast.config';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,20 +27,22 @@ import {VgToastAnimationState} from "../../toast/vg-toast.config";
   animations: [DIALOG_ANIMATION.fadeDialog],
 })
 export class VgMessageDialogComponent implements OnInit {
-
   public onClose = new Subject();
-  public imageUrl: any;
-  public icon: any;
+  public imageUrl!: string;
+  public icon: string | string[] = '';
   public buttonCollection!: ElementRef<HTMLElement>[];
   public cursor = 1;
   animationState: VgToastAnimationState = 'default';
 
-  @ViewChildren('messageButton') public buttonsQueryList!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('messageButton') public buttonsQueryList!: QueryList<
+    ElementRef<HTMLElement>
+  >;
 
-  constructor(@Inject(DIALOG_REF) public dialogOverlayRef: VgDialogOverlayRef,
-              @Inject(DIALOG_DATA) public dialogData: VgDialogData,
-              @Inject(DIALOG_OPTIONS) public dialogOptions: VgDialogOptions) {
-  }
+  constructor(
+    @Inject(DIALOG_REF) public dialogOverlayRef: VgDialogOverlayRef,
+    @Inject(DIALOG_DATA) public dialogData: VgDialogData,
+    @Inject(DIALOG_OPTIONS) public dialogOptions: VgDialogOptions
+  ) {}
 
   @HostListener('document:keydown', ['$event'])
   public onKeydownHandler(event: KeyboardEvent): void {
@@ -55,7 +57,7 @@ export class VgMessageDialogComponent implements OnInit {
     } else {
       switch (event.key) {
         case 'Escape':
-          this.ok(event);
+          this.ok();
           break;
         case 'Tab':
           if (this.cursor === this.buttonCollection.length - 1) {
@@ -66,14 +68,16 @@ export class VgMessageDialogComponent implements OnInit {
           this.buttonCollection[this.cursor].nativeElement.focus();
           break;
         case 'Enter':
-          this.ok(event);
+          this.ok();
           break;
       }
     }
   }
 
   public ngOnInit(): void {
-    this.icon = this.dialogData?.iconClass ? '<i class="' + this.dialogData.iconClass + '"></i>' : '';
+    this.icon = this.dialogData?.iconClass
+      ? '<i class="' + this.dialogData.iconClass + '"></i>'
+      : '';
     const focusToOkButton = setTimeout(() => {
       this.cursor = 0;
       this.buttonCollection = this.buttonsQueryList.toArray();
@@ -82,14 +86,15 @@ export class VgMessageDialogComponent implements OnInit {
     }, 0);
   }
 
-  public ok($event: MouseEvent | KeyboardEvent): void {
+  public ok(): void {
     this.onClose.next(false);
     this.onClose.complete();
     this.dialogOverlayRef.close();
   }
 
-  onFadeFinished(event: any) {
-    const {toState} = event;
+  // eslint-disable-next-line
+  onFadeFinished(event: any): void {
+    const { toState } = event;
     const isFadeOut = (toState as VgDialogAnimationState) === 'closing';
     const itFinished = this.animationState === 'closing';
     if (isFadeOut && itFinished) {

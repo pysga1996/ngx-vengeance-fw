@@ -1,14 +1,12 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class VgLoaderService {
+  private loadingSubject$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
-  private loadingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  constructor() { }
-
-  loading(value: boolean = false) {
+  loading(value = false): void {
     this.loadingSubject$.next(value);
   }
 

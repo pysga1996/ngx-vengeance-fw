@@ -1,30 +1,47 @@
-<div class="vg-dialog-container p-0 m-0 rounded-sm"
-     [@fadeAnimation]="{value: animationState, params:
-        { fadeIn: dialogOptions.animation?.fadeIn ?? 0, fadeOut: dialogOptions.animation?.fadeOut ?? 0 }}"
-     (@fadeAnimation.done)="onFadeFinished($event)"
-     [ngStyle]="{'background-color': 'default', 'color': 'default',
-                  'width': dialogOptions?.size?.width, 'height': dialogOptions?.size?.height}"
-     [ngClass]="dialogOptions.panelClass ?? ''">
+<div
+  class="vg-dialog-container p-0 m-0 rounded-sm"
+  [@fadeAnimation]="{
+    value: animationState,
+    params: {
+      fadeIn: dialogOptions.animation?.fadeIn ?? 0,
+      fadeOut: dialogOptions.animation?.fadeOut ?? 0
+    }
+  }"
+  (@fadeAnimation.done)="onFadeFinished($event)"
+  [ngStyle]="{
+    'background-color': 'default',
+    color: 'default',
+    width: dialogOptions?.size?.width,
+    height: dialogOptions?.size?.height
+  }"
+  [ngClass]="dialogOptions.panelClass ?? ''"
+>
   <div class="modal-header">
-    <h5 style="font-size: 1.3em; font-weight: bold;">{{dialogData.title}}</h5>
-    <button type="button" class="close" aria-label="Close" (click)="ok($event)">
+    <h5 style="font-size: 1.3em; font-weight: bold">{{ dialogData.title }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="ok()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <!--        <div *ngIf="iconClass" [ngClass]="iconClass?iconClass:''" style="width: 80px;" class="pull-left"></div>-->
     <p class="text-center icon-default" [innerHTML]="icon"></p>
     <p class="text-center">
-      <img *ngIf="imageUrl" src="{{imageUrl}}" class="iconMessage"/>
-      <!--              <i *ngIf="iconClass" class="{{iconClass}}"></i>-->
+      <img
+        *ngIf="imageUrl"
+        src="{{ imageUrl }}"
+        class="iconMessage"
+        alt="message-image"
+      />
       <span class="d-block" [innerHTML]="dialogData.message"></span>
     </p>
   </div>
   <div class="modal-footer d-flex justify-content-center">
-    <button #messageButton (click)="ok($event)" class="btn btn-primary m-2 rounded-pill"
-            style="min-width: 5rem !important;">
+    <button
+      #messageButton
+      (click)="ok()"
+      class="btn btn-primary m-2 rounded-pill"
+      style="min-width: 5rem !important"
+    >
       {{ dialogData.buttons?.confirm?.label }}
     </button>
   </div>
 </div>
-

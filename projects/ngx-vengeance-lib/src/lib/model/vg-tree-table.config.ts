@@ -1,4 +1,4 @@
-import {TemplateRef} from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 export interface VgTreeTableColumnConfig {
   title?: string;
@@ -6,9 +6,9 @@ export interface VgTreeTableColumnConfig {
   width?: string;
   type?: 'TEXT' | 'CHECKBOX' | 'CUSTOM';
   customClass?: string;
-  templateRef?: TemplateRef<any>;
+  templateRef?: TemplateRef<never>;
   checkboxVerticalCascade?: boolean;
-  checkboxHorizontalCascade?: { key: string; disabled: boolean; }[];
+  checkboxHorizontalCascade?: { key: string; disabled: boolean }[];
   checkboxDisabled?: boolean;
 }
 

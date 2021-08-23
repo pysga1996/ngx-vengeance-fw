@@ -8,9 +8,8 @@ describe('TreeTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VgTreeTableComponent ]
-    })
-    .compileComponents();
+      declarations: [VgTreeTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,14 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {VgLoaderComponent} from "./vg-loader.component";
-import {VgLoaderService} from "./vg-loader.service";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { VgLoaderComponent } from './vg-loader.component';
+import { VgLoaderService } from './vg-loader.service';
 
 @NgModule({
   declarations: [VgLoaderComponent],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   providers: [VgLoaderService],
-  exports: [VgLoaderComponent]
+  exports: [VgLoaderComponent],
 })
-export class VgLoaderModule { }
+export class VgLoaderModule {}

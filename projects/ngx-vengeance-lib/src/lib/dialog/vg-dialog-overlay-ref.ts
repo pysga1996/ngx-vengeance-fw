@@ -1,14 +1,15 @@
-import {OverlayRef} from '@angular/cdk/overlay';
-import {InjectionToken} from '@angular/core';
-import {Observable} from 'rxjs';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
+// eslint-disable-next-line
 export const DIALOG_REF = new InjectionToken<any>('DIALOG_REF');
 
 export class VgDialogOverlayRef {
-
+  // eslint-disable-next-line
   public componentRef: any;
 
-  constructor(readonly overlay: OverlayRef) { }
+  constructor(readonly overlay: OverlayRef) {}
 
   close(): void {
     this.overlay.dispose();
@@ -19,7 +20,7 @@ export class VgDialogOverlayRef {
   }
 
   isVisible(): HTMLElement {
-    return (this.overlay && this.overlay.overlayElement);
+    return this.overlay && this.overlay.overlayElement;
   }
 
   getPosition(): DOMRect {

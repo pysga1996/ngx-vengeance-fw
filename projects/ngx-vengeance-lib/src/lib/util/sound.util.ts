@@ -1,7 +1,10 @@
 export class SoundUtil {
-
-  public static initSound(soundCollection: string[], label: string, path: string = 'assets/media/sound') {
-    soundCollection.forEach(sound => {
+  public static initSound(
+    soundCollection: string[],
+    label: string,
+    path = 'assets/media/sound'
+  ): void {
+    soundCollection.forEach((sound) => {
       const audioElement = document.createElement('audio');
       audioElement.id = `${label}_${sound}`; //Give it some ID
       const divsParent = document.getElementsByTagName('body')[0]; //get the element where you want to insert the div into
@@ -16,7 +19,10 @@ export class SoundUtil {
     });
   }
 
-  public static playSound(sound: string = 'default', path: string = 'assets/media/sound'): void {
+  public static playSound(
+    sound = 'default',
+    path = 'assets/media/sound'
+  ): void {
     let audioElement = document.getElementById(sound) as HTMLAudioElement;
     if (!audioElement) {
       audioElement = document.createElement('audio');
@@ -34,10 +40,13 @@ export class SoundUtil {
     // }, true);
     // audioElement.pause();
     audioElement.muted = false;
-    audioElement.play().then(() => {
-      console.debug(`Play ${sound} success`);
-    }).catch(err => {
-      console.error(`Play ${sound} failed`, err);
-    });
+    audioElement
+      .play()
+      .then(() => {
+        console.debug(`Play ${sound} success`);
+      })
+      .catch((err) => {
+        console.error(`Play ${sound} failed`, err);
+      });
   }
 }

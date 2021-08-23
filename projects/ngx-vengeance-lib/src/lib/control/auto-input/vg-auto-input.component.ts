@@ -11,9 +11,13 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'vg-auto-input',
@@ -23,49 +27,61 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => VgAutoInputComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class VgAutoInputComponent implements OnInit, AfterViewInit, OnChanges, ControlValueAccessor {
-  text: string = '';
+export class VgAutoInputComponent
+  implements OnInit, AfterViewInit, OnChanges, ControlValueAccessor
+{
+  text = '';
+  // eslint-disable-next-line
   value: any = null;
-  isFocused: boolean = false;
-  @Input() size: 'sm' | 'md' | 'lg' = 'md'
-  @Input() isDisabled: boolean = false;
+  isFocused = false;
+  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() isDisabled = false;
+  // eslint-disable-next-line
   @Input() searchResults: any[] = [];
-  @Input() limit: number = 10;
-  @Input() placeholder: string = '';
-  @Input() nameField: string = 'name';
-  @Input() valueField: string = 'value';
-  @Input() imageField: string = '';
+  @Input() limit = 10;
+  @Input() placeholder = '';
+  @Input() nameField = 'name';
+  @Input() valueField = 'value';
+  @Input() imageField = '';
+  // eslint-disable-next-line
   @Input() itemTemplateRef!: TemplateRef<any>;
-  @Input() itemTemplateCtx: Object | null = null;
-  @Output() onChangeText: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onChangeValue: EventEmitter<any> = new EventEmitter<any>();
+  // eslint-disable-next-line
+  @Input() itemTemplateCtx: any = null;
+  @Output() changeTextEvent: EventEmitter<string> = new EventEmitter<string>();
+  // eslint-disable-next-line
+  @Output() changeValueEvent: EventEmitter<any> =
+    // eslint-disable-next-line
+    new EventEmitter<any>();
   @ViewChild('inputElement')
   inputElement!: ElementRef<HTMLInputElement>;
   ngControl!: NgControl;
   status: 'VALID' | 'INVALID' | 'PENDING' | 'DISABLED' = 'VALID';
 
-  onChange = (_: any) => {
+  // eslint-disable-next-line
+  onChange = (val: any): void => {
+    console.log(val);
   };
 
-  onTouched = () => {
+  onTouched = (): void => {
+    console.log();
   };
 
-  constructor(private inj: Injector) {
-    // ngControl.valueAccessor = this;
-  }
+  constructor(private inj: Injector) {}
 
   ngOnInit(): void {
     this.ngControl = this.inj.get(NgControl);
     console.log(this.ngControl);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.inputElement) {
-      this.inputElement.nativeElement.classList.add(`form-control-${this.size}`);
+      this.inputElement.nativeElement.classList.add(
+        `form-control-${this.size}`
+      );
     }
   }
 
@@ -75,31 +91,32 @@ export class VgAutoInputComponent implements OnInit, AfterViewInit, OnChanges, C
     }
   }
 
-  emitResult(event: Event, result: any) {
+  // eslint-disable-next-line
+  emitResult(event: Event, result: any): void {
     this.value = this.valueField ? result[this.valueField] : result;
     this.text = result[this.nameField];
     this.inputElement.nativeElement.value = this.text;
-    this.onChangeText.emit(this.text);
-    this.onChangeValue.emit(this.value);
+    this.changeTextEvent.emit(this.text);
+    this.changeValueEvent.emit(this.value);
     this.onChange(this.value);
     this.onTouched();
     this.isFocused = false;
   }
 
-  inputText(event: Event) {
+  inputText(event: Event): void {
     if (this.isDisabled) {
       return;
     }
     if (!this.isFocused) {
       this.isFocused = true;
     }
-    this.text = (event.target as HTMLInputElement).value
-    this.onChangeText.emit(this.text);
+    this.text = (event.target as HTMLInputElement).value;
+    this.changeTextEvent.emit(this.text);
     this.onChange(null);
     this.onTouched();
   }
 
-  focus() {
+  focus(): void {
     if (this.isDisabled) {
       return;
     }
@@ -107,18 +124,18 @@ export class VgAutoInputComponent implements OnInit, AfterViewInit, OnChanges, C
     this.inputElement.nativeElement.focus();
   }
 
-  blur(_: Event) {
+  blur(): void {
     if (this.isDisabled) {
       return;
     }
     this.isFocused = false;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: never): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: never): void {
     this.onTouched = fn;
   }
 
@@ -126,11 +143,10 @@ export class VgAutoInputComponent implements OnInit, AfterViewInit, OnChanges, C
     this.isDisabled = isDisabled;
   }
 
+  // eslint-disable-next-line
   writeValue(obj: any): void {
     this.value = obj;
-    if (typeof this.value === 'string') {
-      this.text = this.value;
-    }
-    this.onChangeValue.emit(this.value);
+    this.text = String(this.value);
+    this.changeValueEvent.emit(this.value);
   }
 }

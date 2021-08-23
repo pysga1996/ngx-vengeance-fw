@@ -1,24 +1,33 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class VgErrorDictService {
-
-  private messagePrefix: string = '';
-  private translateService: any;
+  private messagePrefix = '';
+  // eslint-disable-next-line
+  private translateService!: any;
   private translateFuncName!: string;
 
-  constructor() {}
-
-  register(messagePrefix: string, service: any, translateFuncName: string): void {
+  register(
+    messagePrefix: string,
+    // eslint-disable-next-line
+    service: any,
+    translateFuncName: string
+  ): void {
     this.messagePrefix = messagePrefix;
     this.translateService = service;
     this.translateFuncName = translateFuncName;
   }
 
-  translate(key: string, label: string, argsObj?: { [key: string]: string }): string {
-    return this.translateService[this.translateFuncName](`${this.messagePrefix}${key}`, {
+  // eslint-disable-next-line
+  translate(key: string, label: string, argsObj: any): string {
+    return (
+      this.translateService[this.translateFuncName] as (
+        key: string,
+        options: { [key: string]: unknown }
+      ) => string
+    )(`${this.messagePrefix}${key}`, {
       label,
-      ...argsObj
+      ...argsObj,
     });
   }
 

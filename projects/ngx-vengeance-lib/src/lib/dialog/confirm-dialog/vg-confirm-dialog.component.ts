@@ -5,19 +5,19 @@ import {
   Inject,
   OnInit,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import {Subject} from 'rxjs';
-import {DIALOG_REF, VgDialogOverlayRef} from '../vg-dialog-overlay-ref';
+import { Subject } from 'rxjs';
+import { DIALOG_REF, VgDialogOverlayRef } from '../vg-dialog-overlay-ref';
 import {
   DIALOG_ANIMATION,
   DIALOG_DATA,
   DIALOG_OPTIONS,
   VgDialogAnimationState,
   VgDialogData,
-  VgDialogOptions
-} from "../vg-dialog-config";
-import {VgToastAnimationState} from "../../toast/vg-toast.config";
+  VgDialogOptions,
+} from '../vg-dialog-config';
+import { VgToastAnimationState } from '../../toast/vg-toast.config';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,19 +27,21 @@ import {VgToastAnimationState} from "../../toast/vg-toast.config";
   animations: [DIALOG_ANIMATION.fadeDialog],
 })
 export class VgConfirmDialogComponent implements OnInit {
-
   public onClose = new Subject();
-  public iconClass: any;
+  public iconClass: string | string[] = '';
   public buttonCollection!: ElementRef<HTMLElement>[];
   public cursor = 1;
   animationState: VgToastAnimationState = 'default';
 
-  @ViewChildren('confirmDialogButton') public buttonsQueryList!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('confirmDialogButton') public buttonsQueryList!: QueryList<
+    ElementRef<HTMLElement>
+  >;
 
-  constructor(@Inject(DIALOG_REF) public dialogOverlayRef: VgDialogOverlayRef,
-              @Inject(DIALOG_DATA) public dialogData: VgDialogData,
-              @Inject(DIALOG_OPTIONS) public dialogOptions: VgDialogOptions) {
-  }
+  constructor(
+    @Inject(DIALOG_REF) public dialogOverlayRef: VgDialogOverlayRef,
+    @Inject(DIALOG_DATA) public dialogData: VgDialogData,
+    @Inject(DIALOG_OPTIONS) public dialogOptions: VgDialogOptions
+  ) {}
 
   @HostListener('document:keydown', ['$event'])
   public onKeydownHandler(event: KeyboardEvent): void {
@@ -54,7 +56,7 @@ export class VgConfirmDialogComponent implements OnInit {
     } else {
       switch (event.key) {
         case 'Escape':
-          this.cancel(event);
+          this.cancel();
           break;
         case 'Tab':
           if (this.cursor === this.buttonCollection.length - 1) {
@@ -66,7 +68,7 @@ export class VgConfirmDialogComponent implements OnInit {
           break;
         case 'Enter':
           if (this.cursor === 0) {
-            this.cancel(event);
+            this.cancel();
           } else {
             this.buttonCollection[this.cursor].nativeElement.click();
           }
@@ -75,13 +77,13 @@ export class VgConfirmDialogComponent implements OnInit {
     }
   }
 
-  public confirm($event: MouseEvent | KeyboardEvent): void {
+  public confirm(): void {
     this.onClose.next(true);
     this.onClose.complete();
     this.dialogOverlayRef.close();
   }
 
-  public cancel($event: MouseEvent | KeyboardEvent): void {
+  public cancel(): void {
     this.onClose.next(false);
     this.onClose.complete();
     this.dialogOverlayRef.close();
@@ -96,13 +98,13 @@ export class VgConfirmDialogComponent implements OnInit {
     }, 0);
   }
 
-  onFadeFinished(event: any) {
-    const {toState} = event;
+  // eslint-disable-next-line
+  onFadeFinished(event: any): void {
+    const { toState } = event;
     const isFadeOut = (toState as VgDialogAnimationState) === 'closing';
     const itFinished = this.animationState === 'closing';
     if (isFadeOut && itFinished) {
       this.dialogOverlayRef.close();
     }
   }
-
 }

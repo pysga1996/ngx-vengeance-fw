@@ -1,5 +1,9 @@
-<ngb-progressbar *ngIf="httpObs" [type]="responseData.type"
-                 [value]="responseData.data" [striped]="true"
-                 [animated]="true">
-  {{responseData.data}}{{responseData.type === 'info' ? '%' : ''}}
+<ngb-progressbar
+  *ngIf="httpObs"
+  [type]="responseData.type"
+  [value]="responseData.progress"
+  [striped]="true"
+  [animated]="true"
+>
+  {{ responseData.data }}{{ responseData.type === "info" ? "%" : "" }}
 </ngb-progressbar>

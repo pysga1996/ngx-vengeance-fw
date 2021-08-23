@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {VgUploadProgressComponent} from './vg-upload-progress.component';
+import { VgUploadProgressComponent } from './vg-upload-progress.component';
 
 describe('UploadProgressComponent', () => {
   let component: VgUploadProgressComponent;
@@ -8,9 +8,8 @@ describe('UploadProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VgUploadProgressComponent ]
-    })
-    .compileComponents();
+      declarations: [VgUploadProgressComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,23 +1,23 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'vgCurrency'
+  name: 'vgCurrency',
 })
 export class VgCustomCurrencyPipe implements PipeTransform {
-
-  currentLocale: string = 'vi-VN';
+  currentLocale = 'vi-VN';
 
   constructor() {
     if (navigator.language) {
-      this.changeLocale(navigator.language)
+      this.changeLocale(navigator.language);
     }
   }
 
-  changeLocale(locale: string) {
+  changeLocale(locale: string): void {
     this.currentLocale = locale;
   }
 
-  transform(value: any, ...arg: any[]): string {
+  // eslint-disable-next-line
+  transform(value: any, ...arg: never[]): string {
     if (arg[0] && arg[0] !== this.currentLocale) {
       this.changeLocale(arg[0]);
     }
@@ -29,5 +29,4 @@ export class VgCustomCurrencyPipe implements PipeTransform {
       return strDigitOnly.replace(/\D/g, '');
     }
   }
-
 }

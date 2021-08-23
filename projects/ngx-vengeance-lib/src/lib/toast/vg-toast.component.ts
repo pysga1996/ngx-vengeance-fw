@@ -1,5 +1,5 @@
-import {Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
-import {VgToastOverlayRef} from './vg-toast-overlay-ref';
+import { Component, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
+import { VgToastOverlayRef } from './vg-toast-overlay-ref';
 import {
   RUNTIME_TOAST_CONF,
   TOAST_ANIMATION,
@@ -7,9 +7,10 @@ import {
   TOAST_DATA,
   TOAST_OVERLAY_REF,
   VgToastAnimationState,
-  VgToastConfig, VgToastData
+  VgToastConfig,
+  VgToastData,
 } from './vg-toast.config';
-import {AnimationEvent} from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'vg-toast',
@@ -18,24 +19,27 @@ import {AnimationEvent} from '@angular/animations';
   animations: [TOAST_ANIMATION.fadeToast],
 })
 export class VgToastComponent implements OnInit, OnDestroy {
-
   animationState: VgToastAnimationState = 'default';
-  intervalId: number = 0;
-  progress: number = 0;
+  intervalId = 0;
+  progress = 0;
   toastBefore!: VgToastOverlayRef | null;
 
-  constructor(@Optional() @Inject(TOAST_DATA) readonly data: VgToastData,
-              @Optional() @Inject(TOAST_OVERLAY_REF) readonly toastOverlayRef: VgToastOverlayRef,
-              @Optional() @Inject(TOAST_CONF) readonly conf: VgToastConfig,
-              @Optional() @Inject(RUNTIME_TOAST_CONF) readonly runtimeConf: VgToastConfig) {
-    this.conf = {...this.conf, ...this.runtimeConf};
+  constructor(
+    @Optional() @Inject(TOAST_DATA) readonly data: VgToastData,
+    @Optional()
+    @Inject(TOAST_OVERLAY_REF)
+    readonly toastOverlayRef: VgToastOverlayRef,
+    @Optional() @Inject(TOAST_CONF) readonly conf: VgToastConfig,
+    @Optional() @Inject(RUNTIME_TOAST_CONF) readonly runtimeConf: VgToastConfig
+  ) {
+    this.conf = { ...this.conf, ...this.runtimeConf };
   }
 
   ngOnInit(): void {
     if (this.conf?.duration) {
       this.progress = 0;
       this.intervalId = setInterval(() => {
-        if (this.conf.duration && this.progress >= (this.conf.duration)) {
+        if (this.conf.duration && this.progress >= this.conf.duration) {
           clearInterval(this.intervalId);
           this.progress = 0;
           this.animationState = 'closing';
@@ -53,7 +57,7 @@ export class VgToastComponent implements OnInit, OnDestroy {
   }
 
   onFadeFinished(event: AnimationEvent): void {
-    const {toState} = event;
+    const { toState } = event;
     const isFadeOut = (toState as VgToastAnimationState) === 'closing';
     const itFinished = this.animationState === 'closing';
 
@@ -65,5 +69,4 @@ export class VgToastComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.intervalId);
   }
-
 }

@@ -1,10 +1,21 @@
-<div class="vg-dialog-container m-0 p-0 rounded-sm"
-     [@fadeAnimation]="{value: animationState, params:
-        { fadeIn: dialogOptions.animation?.fadeIn ?? 0, fadeOut: dialogOptions.animation?.fadeOut ?? 0 }}"
-     (@fadeAnimation.done)="onFadeFinished($event)"
-     [ngStyle]="{'background-color': 'default', 'color': 'default',
-                  'width': dialogOptions?.size?.width, 'height': dialogOptions?.size?.height}"
-     [ngClass]="dialogOptions.panelClass ?? ''">
+<div
+  class="vg-dialog-container m-0 p-0 rounded-sm"
+  [@fadeAnimation]="{
+    value: animationState,
+    params: {
+      fadeIn: dialogOptions.animation?.fadeIn ?? 0,
+      fadeOut: dialogOptions.animation?.fadeOut ?? 0
+    }
+  }"
+  (@fadeAnimation.done)="onFadeFinished($event)"
+  [ngStyle]="{
+    'background-color': 'default',
+    color: 'default',
+    width: dialogOptions?.size?.width,
+    height: dialogOptions?.size?.height
+  }"
+  [ngClass]="dialogOptions.panelClass ?? ''"
+>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-basic-title">{{ title }}</h5>
     <button type="button" class="close" aria-label="Close" (click)="close()">

@@ -1,4 +1,6 @@
 export interface VgProgressResponse {
   type: 'success' | 'danger' | 'info';
-  data: string | number;
+  // eslint-disable-next-line
+  data: any;
+  progress: number;
 }

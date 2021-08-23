@@ -1,24 +1,51 @@
-<div class="vg-dialog-container p-0 m-0 rounded-sm"
-     [@fadeAnimation]="{value: animationState, params:
-        { fadeIn: dialogOptions.animation?.fadeIn ?? 0, fadeOut: dialogOptions.animation?.fadeOut ?? 0 }}"
-     (@fadeAnimation.done)="onFadeFinished($event)"
-     [ngStyle]="{'background-color': 'default', 'color': 'default',
-                  'width': dialogOptions?.size?.width, 'height': dialogOptions?.size?.height}"
-     [ngClass]="dialogOptions.panelClass ?? ''">
+<div
+  class="vg-dialog-container p-0 m-0 rounded-sm"
+  [@fadeAnimation]="{
+    value: animationState,
+    params: {
+      fadeIn: dialogOptions.animation?.fadeIn ?? 0,
+      fadeOut: dialogOptions.animation?.fadeOut ?? 0
+    }
+  }"
+  (@fadeAnimation.done)="onFadeFinished($event)"
+  [ngStyle]="{
+    'background-color': 'default',
+    color: 'default',
+    width: dialogOptions?.size?.width,
+    height: dialogOptions?.size?.height
+  }"
+  [ngClass]="dialogOptions.panelClass ?? ''"
+>
   <div class="modal-header">
-    <h5 style="font-size: 1.3em; font-weight: bold;">{{dialogData.title}}</h5>
-    <button type="button" class="close" aria-label="Close" (click)="cancel($event)">
+    <h5 style="font-size: 1.3em; font-weight: bold">{{ dialogData.title }}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p class="text-center icon-default"><i *ngIf="iconClass" class="{{iconClass}}"></i></p>
-    <p class="text-center">{{dialogData.message}}</p>
+    <p class="text-center icon-default">
+      <i *ngIf="iconClass" class="{{ iconClass }}"></i>
+    </p>
+    <p class="text-center">{{ dialogData.message }}</p>
   </div>
   <div class="modal-footer d-flex justify-content-center">
-    <button type="button" #confirmDialogButton class="btn btn-primary m-2 rounded-pill" style="min-width: 5rem"
-            (click)="confirm($event)">{{dialogData.buttons?.confirm?.label}}</button>
-    <button type="button" #confirmDialogButton class="btn btn-secondary m-2 rounded-pill" style="min-width: 5rem"
-            (click)="cancel($event)">{{dialogData.buttons?.cancel?.label}}</button>
+    <button
+      type="button"
+      #confirmDialogButton
+      class="btn btn-primary m-2 rounded-pill"
+      style="min-width: 5rem"
+      (click)="confirm()"
+    >
+      {{ dialogData.buttons?.confirm?.label }}
+    </button>
+    <button
+      type="button"
+      #confirmDialogButton
+      class="btn btn-secondary m-2 rounded-pill"
+      style="min-width: 5rem"
+      (click)="cancel()"
+    >
+      {{ dialogData.buttons?.cancel?.label }}
+    </button>
   </div>
 </div>

@@ -113,6 +113,15 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-vengeance-demo/**/*.ts",
+              "projects/ngx-vengeance-demo/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -143,6 +152,15 @@
             "main": "projects/ngx-vengeance-lib/src/test.ts",
             "tsConfig": "projects/ngx-vengeance-lib/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-vengeance-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-vengeance-lib/**/*.ts",
+              "projects/ngx-vengeance-lib/**/*.html"
+            ]
           }
         }
       }

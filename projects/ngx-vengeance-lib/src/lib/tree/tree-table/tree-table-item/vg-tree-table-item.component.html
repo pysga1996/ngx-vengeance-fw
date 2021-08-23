@@ -1,44 +1,71 @@
 <ng-template #template>
   <tr (click)="selectRow(treeItem)" tabindex="0" (blur)="selectRow(null)">
     <td class="m-0">
-      <span *ngFor="let metadata of (paddingBlockConfig | keyvalue); index as i; count as size"
-            class="tree-table-space-block"
-            [class.y-line]="metadata.value"
-            [class.last-block]="i === size - 1"
-            ></span>
-      <span *ngIf="treeItem.children.length; else emptyBtn" (click)="expand($event, treeItem)"
-            class="tree-table-space-block btn-toggle font-weight-bold">
-        {{ treeItem.expanded ? '-' : '+'}}
+      <span
+        *ngFor="
+          let metadata of paddingBlockConfig | keyvalue;
+          index as i;
+          count as size
+        "
+        class="tree-table-space-block"
+        [class.y-line]="metadata.value"
+        [class.last-block]="i === size - 1"
+      ></span>
+      <span
+        *ngIf="treeItem.children.length; else emptyBtn"
+        (click)="expand($event, treeItem)"
+        class="tree-table-space-block btn-toggle font-weight-bold"
+      >
+        {{ treeItem.expanded ? "-" : "+" }}
       </span>
       <ng-template #emptyBtn>
         <span class="tree-table-space-block btn-toggle"></span>
       </ng-template>
     </td>
     <td *ngFor="let columnConfig of treeTableConfig.columns">
-      <div [ngSwitch]="columnConfig.type" [className]="columnConfig.customClass ?? ''">
+      <div
+        [ngSwitch]="columnConfig.type"
+        [className]="columnConfig.customClass ?? ''"
+      >
         <ng-container *ngSwitchCase="'CUSTOM'">
-          <div [ngTemplateOutlet]="columnConfig.templateRef ?? null"
-               [ngTemplateOutletContext]="$any(treeItem.data) ?? null"></div>
+          <div
+            [ngTemplateOutlet]="columnConfig.templateRef ?? null"
+            [ngTemplateOutletContext]="$any(treeItem.data) ?? null"
+          ></div>
         </ng-container>
         <ng-container *ngSwitchCase="'CHECKBOX'">
           <label class="container">
-            <input type="checkbox" [disabled]="treeItem.isDisabled? treeItem.isDisabled[columnConfig.key] : false"
-                   [checked]="$any(treeItem?.data)[columnConfig.key]"
-                   (change)="check($event, columnConfig.key)">
+            <input
+              type="checkbox"
+              [disabled]="
+                treeItem.isDisabled
+                  ? treeItem.isDisabled[columnConfig.key]
+                  : false
+              "
+              [checked]="$any(treeItem?.data)[columnConfig.key]"
+              (change)="check($event, columnConfig.key, columnConfig)"
+            />
             <span class="checkmark"></span>
           </label>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <span>{{$any(treeItem?.data)[columnConfig.key]}}</span>
+          <span>{{ $any(treeItem?.data)[columnConfig.key] }}</span>
         </ng-container>
       </div>
     </td>
   </tr>
   <ng-container *ngIf="treeItem.expanded">
-    <vg-tree-table-item *ngFor="let item of treeItem.children; index as i"
-                         [treeTableConfig]="treeTableConfig" [treeItem]="item"
-                         [paddingBlockConfig]="paddingBlockConfig | vgTreeTableBlock:item.level:i:treeItem.children.length - 1"
-                         (onSelectRow)="forwardSelectRow($event)" (onCheck)="forwardCheck($event)">
+    <vg-tree-table-item
+      *ngFor="let item of treeItem.children; index as i"
+      [treeTableConfig]="treeTableConfig"
+      [treeItem]="item"
+      [paddingBlockConfig]="
+        paddingBlockConfig
+          | vgTreeTableBlock: item.level:i:treeItem.children.length - 1
+      "
+      (selectRowEvent)="forwardSelectRow($event)"
+      (checkEvent)="forwardCheck($event)"
+    >
     </vg-tree-table-item>
   </ng-container>
 </ng-template>

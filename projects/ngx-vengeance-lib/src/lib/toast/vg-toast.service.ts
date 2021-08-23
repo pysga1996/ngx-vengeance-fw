@@ -1,8 +1,8 @@
-import {Inject, Injectable, Injector} from '@angular/core';
-import {Overlay, PositionStrategy} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {VgToastOverlayRef} from './vg-toast-overlay-ref';
-import {VgToastComponent} from './vg-toast.component';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { Overlay, PositionStrategy } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { VgToastOverlayRef } from './vg-toast-overlay-ref';
+import { VgToastComponent } from './vg-toast.component';
 import {
   RUNTIME_TOAST_CONF,
   TOAST_CONF,
@@ -10,28 +10,40 @@ import {
   TOAST_OVERLAY_REF,
   TOAST_TYPE,
   VgToastConfig,
-  VgToastData
+  VgToastData,
 } from './vg-toast.config';
-import {SoundUtil} from "../util/sound.util";
+import { SoundUtil } from '../util/sound.util';
 
 @Injectable()
 export class VgToastService {
   private lastToast!: VgToastOverlayRef;
   public readonly msgPool: Set<string> = new Set();
-  initialToastSounds = ['default', 'chord', 'battery-critical', 'error', 'balloon'];
+  initialToastSounds = [
+    'default',
+    'chord',
+    'battery-critical',
+    'error',
+    'balloon',
+  ];
 
-  constructor(private overlay: Overlay, private parentInjector: Injector,
-              @Inject(TOAST_CONF) private toastConfig: VgToastConfig) {
+  constructor(
+    private overlay: Overlay,
+    private parentInjector: Injector,
+    @Inject(TOAST_CONF) private toastConfig: VgToastConfig
+  ) {
     SoundUtil.initSound(this.initialToastSounds, 'toastSound');
   }
 
-  show(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): VgToastOverlayRef | null {
+  show(
+    data: VgToastData,
+    runtimeConfig: VgToastConfig = { duration: 3000 }
+  ): VgToastOverlayRef | null {
     if (!data?.text || this.msgPool.has(data.text)) {
       return null;
     } else {
       this.msgPool.add(data.text);
     }
-    const config: VgToastConfig = {...this.toastConfig, ...runtimeConfig};
+    const config: VgToastConfig = { ...this.toastConfig, ...runtimeConfig };
     SoundUtil.playSound(config.sound);
     const positionStrategy = this.getPositionStrategy(config);
     const overlayRef = this.overlay.create({
@@ -45,7 +57,12 @@ export class VgToastService {
     this.lastToast = toastRef;
     this.lastToast.toastOverlayRefBefore = tmpToastOverlayRef;
 
-    const injector = this.getInjector(data, toastRef, this.parentInjector, runtimeConfig);
+    const injector = this.getInjector(
+      data,
+      toastRef,
+      this.parentInjector,
+      runtimeConfig
+    );
     const toastPortal = new ComponentPortal(VgToastComponent, null, injector);
 
     const comp = overlayRef.attach(toastPortal);
@@ -54,18 +71,25 @@ export class VgToastService {
     return this.lastToast;
   }
 
-  getInjector(data: VgToastData, toastRef: VgToastOverlayRef, parentInjector: Injector, runtimeConfig?: VgToastConfig): Injector {
+  getInjector(
+    data: VgToastData,
+    toastRef: VgToastOverlayRef,
+    parentInjector: Injector,
+    runtimeConfig?: VgToastConfig
+  ): Injector {
     return Injector.create({
       providers: [
-        {provide: TOAST_DATA, useValue: data},
-        {provide: TOAST_OVERLAY_REF, useValue: toastRef},
-        {provide: RUNTIME_TOAST_CONF, useValue: runtimeConfig}
+        { provide: TOAST_DATA, useValue: data },
+        { provide: TOAST_OVERLAY_REF, useValue: toastRef },
+        { provide: RUNTIME_TOAST_CONF, useValue: runtimeConfig },
       ],
-      parent: parentInjector
+      parent: parentInjector,
     });
   }
 
-  getPositionStrategy(config: VgToastConfig = {duration: 3000}): PositionStrategy {
+  getPositionStrategy(
+    config: VgToastConfig = { duration: 3000 }
+  ): PositionStrategy {
     const positionStrategy = this.overlay.position().global();
     if (config.position.top) {
       positionStrategy.top(config.position.top);
@@ -88,35 +112,47 @@ export class VgToastService {
     return positionStrategy;
   }
 
-  success(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+  success(
+    data: VgToastData,
+    runtimeConfig: VgToastConfig = { duration: 3000 }
+  ): void {
     this.show(data, {
       ...runtimeConfig,
       type: TOAST_TYPE.SUCCESS,
-      sound: 'chord'
+      sound: 'chord',
     });
   }
 
-  error(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+  error(
+    data: VgToastData,
+    runtimeConfig: VgToastConfig = { duration: 3000 }
+  ): void {
     this.show(data, {
       ...runtimeConfig,
       type: TOAST_TYPE.ERROR,
-      sound: 'battery-critical'
+      sound: 'battery-critical',
     });
   }
 
-  warning(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+  warning(
+    data: VgToastData,
+    runtimeConfig: VgToastConfig = { duration: 3000 }
+  ): void {
     this.show(data, {
       ...runtimeConfig,
       type: TOAST_TYPE.WARNING,
-      sound: 'error'
+      sound: 'error',
     });
   }
 
-  info(data: VgToastData, runtimeConfig: VgToastConfig = {duration: 3000}): void {
+  info(
+    data: VgToastData,
+    runtimeConfig: VgToastConfig = { duration: 3000 }
+  ): void {
     this.show(data, {
       ...runtimeConfig,
       type: TOAST_TYPE.INFO,
-      sound: 'balloon'
+      sound: 'balloon',
     });
   }
 }

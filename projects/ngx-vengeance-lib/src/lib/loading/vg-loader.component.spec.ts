@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {VgLoaderComponent} from './vg-loader.component';
+import { VgLoaderComponent } from './vg-loader.component';
 
 describe('VgLoaderComponent', () => {
   let component: VgLoaderComponent;
@@ -8,9 +8,8 @@ describe('VgLoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VgLoaderComponent ]
-    })
-    .compileComponents();
+      declarations: [VgLoaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
