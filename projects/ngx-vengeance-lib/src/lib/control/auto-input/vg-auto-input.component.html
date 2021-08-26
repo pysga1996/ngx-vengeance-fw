@@ -6,7 +6,8 @@
     [class.ng-invalid]="ngControl['invalid']"
     [value]="text"
     [placeholder]="placeholder"
-    (input)="inputText($event)"
+    vgDelayInput
+    (delayInput)="inputText($event)"
   />
   <ng-container
     *ngIf="itemTemplateRef; then templateBlock; else noTemplateBlock"

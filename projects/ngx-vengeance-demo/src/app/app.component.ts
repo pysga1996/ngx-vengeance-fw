@@ -124,6 +124,7 @@ export class AppComponent implements OnInit {
   }
 
   search(event: string): void {
+    console.log('search invoke!!!');
     this.tempResults = this.searchResults.filter((e) =>
       e.title.includes(event)
     );

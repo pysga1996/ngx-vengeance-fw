@@ -46,6 +46,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   - Number Input
   - Currency Input
   - Focus First Invalid Input (Form)
+  - Delay click
 
 ### 7. Utilities:
 

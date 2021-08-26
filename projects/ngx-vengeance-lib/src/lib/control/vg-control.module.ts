@@ -5,6 +5,7 @@ import { NgbAlertModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { VgErrorSectionComponent } from './error-section/vg-error-section.component';
 import { VgErrorMessagePipe } from './error-section/vg-error-message.pipe';
 import { VgErrorDictService } from './error-section/vg-error-dict.service';
+import { VgDelayInputDirective } from './vg-delay-input.directive';
 
 export interface VgErrorDictServiceProvider extends FactoryProvider {
   provide: typeof VgErrorDictService;
@@ -18,9 +19,15 @@ export interface VgErrorDictServiceProvider extends FactoryProvider {
     VgAutoInputComponent,
     VgErrorSectionComponent,
     VgErrorMessagePipe,
+    VgDelayInputDirective,
   ],
   imports: [CommonModule, NgbTooltipModule, NgbAlertModule],
-  exports: [VgAutoInputComponent, VgErrorSectionComponent, VgErrorMessagePipe],
+  exports: [
+    VgAutoInputComponent,
+    VgErrorSectionComponent,
+    VgErrorMessagePipe,
+    VgDelayInputDirective,
+  ],
   providers: [VgErrorDictService],
 })
 export class VgControlModule {
