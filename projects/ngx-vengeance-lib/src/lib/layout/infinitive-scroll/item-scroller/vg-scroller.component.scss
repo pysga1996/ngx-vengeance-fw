@@ -1,0 +1,34 @@
+.item-scroll-viewport {
+  height: 100%;
+  width: 100%;
+}
+
+cdk-virtual-scroll-viewport {
+  border: 1px solid black;
+
+  li {
+    list-style: none;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0.2rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

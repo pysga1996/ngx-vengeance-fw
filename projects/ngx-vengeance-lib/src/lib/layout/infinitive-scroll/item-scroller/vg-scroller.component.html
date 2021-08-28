@@ -1,0 +1,25 @@
+<cdk-virtual-scroll-viewport
+  *ngIf="dataSource"
+  [itemSize]="itemSize"
+  [minBufferPx]="minBufferPx"
+  [maxBufferPx]="maxBufferPx"
+  class="item-scroll-viewport"
+>
+  <ng-container *ngIf="dataSource.cachedItems.length; else noDataTmpl">
+    <li *cdkVirtualFor="let item of dataSource">
+      <ng-container
+        [ngTemplateOutlet]="customTemplate ? customTemplate : defaultItemTmpl"
+        [ngTemplateOutletContext]="{ item: item }"
+      >
+      </ng-container>
+    </li>
+  </ng-container>
+</cdk-virtual-scroll-viewport>
+<ng-template #defaultItemTmpl let-item="item">
+  <div *ngIf="item" class="list-group-item">
+    <div class="text-dark">{{ item.name }}</div>
+  </div>
+</ng-template>
+<ng-template #noDataTmpl>
+  <div>No data found</div>
+</ng-template>

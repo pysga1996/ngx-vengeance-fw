@@ -41,6 +41,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     })
 ```
 
+### 7. Layout:
+
+  - Infinitive Scroll
+
 ### 6. Directives:
 
   - Number Input

@@ -1,0 +1,74 @@
+<form
+  [formGroup]="testForm"
+  vgFocusFirstInvalid
+  [form]="$any(testForm)"
+  (ngSubmit)="log()"
+>
+  <div class="form-group">
+    <label>Test auto</label>
+    <vg-auto-input
+      formControlName="testAuto"
+      [searchResults]="tempResults"
+      [nameField]="'title'"
+      [valueField]="'id'"
+      [size]="'sm'"
+      (changeTextEvent)="search($event)"
+    ></vg-auto-input>
+    <vg-error-section
+      [label]="'Test number'"
+      [group]="$any(testForm)"
+      [controlName]="'testAuto'"
+    ></vg-error-section>
+  </div>
+  <div class="form-group">
+    <label>Test currency</label>
+    <input
+      type="text"
+      class="form-control form-control-sm"
+      vgCurrencyInput
+      formControlName="testNumber"
+    />
+    <vg-error-section
+      [label]="'Test currency'"
+      [group]="$any(testForm)"
+      [controlName]="'testNumber'"
+    ></vg-error-section>
+  </div>
+  <div class="form-group">
+    <label>Test text</label>
+    <input
+      type="text"
+      class="form-control form-control-sm"
+      formControlName="testText"
+    />
+    <vg-error-section
+      [label]="'Test field'"
+      [group]="$any(testForm)"
+      [controlName]="'testText'"
+    ></vg-error-section>
+  </div>
+  <div class="form-group">
+    <label>Test text area</label>
+    <textarea
+      type="text"
+      class="form-control form-control-sm"
+      formControlName="testTextArea"
+    ></textarea>
+    <vg-error-section
+      [label]="'Test text area'"
+      [group]="$any(testForm)"
+      [controlName]="'testTextArea'"
+    ></vg-error-section>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+<span>{{ testForm.get("testNumber")?.value || "" }}</span>
+<button (click)="log()">Log number</button>
+<!--  <input type="text" vgCurrencyInput [(ngModel)]="testNumber">-->
+<!--  <span>{{testNumber | vgCurrency:'en-US'}}</span>-->
+<!--  <button (click)="log2()">Log number</button>-->
+<!--  <vg-auto-input [searchResults]="tempResults" [nameField]="'title'" [valueField]="'id'"-->
+<!--                 (onChangeText)="search($event)"></vg-auto-input>-->
+<!--  <vg-light-tree-table [ngStyle]="{width: '100%'}"-->
+<!--    [treeTableConfig]="treeTableConfig" [treeItems]="tree" [parentIdKey]="'parent'"-->
+<!--  ></vg-light-tree-table> -->

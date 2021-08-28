@@ -9,6 +9,7 @@ import {
   VgControlModule,
   VgDirectivesModule,
   VgErrorDictService,
+  VgLayoutModule,
   VgPipeModule,
   VgToastModule,
   VgTreeTableModule,
@@ -23,6 +24,8 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { VgLoaderModule } from '../../../ngx-vengeance-lib/src/lib/loading/vg-loader.module';
+import { TestInfinitiveScrollComponent } from './test-infinitive-scroll/test-infinitive-scroll.component';
+import { TestInputComponent } from './test-input/test-input.component';
 
 // loader module
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -30,7 +33,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TestInfinitiveScrollComponent, TestInputComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     VgDirectivesModule,
     VgPipeModule,
     VgLoaderModule,
+    VgLayoutModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule.forRoot({
