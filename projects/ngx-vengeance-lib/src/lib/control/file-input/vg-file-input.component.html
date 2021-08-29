@@ -67,7 +67,21 @@
   <ng-container [ngSwitch]="type">
     <ng-template ngSwitchCase="image">
       <div class="file-preview">
-        <img class="file-preview-image" [src]="src" alt="imagePreview" />
+        <img
+          #imageElement
+          class="file-preview-image"
+          [src]="src"
+          alt="imagePreview"
+          (load)="onResourceLoaded(imageElement, fallbackIconImage, null, true)"
+          (error)="
+            onResourceLoaded(imageElement, fallbackIconImage, null, false)
+          "
+        />
+        <i
+          #fallbackIconImage
+          [className]="type | vgFileIcon"
+          style="display: none"
+        ></i>
       </div>
     </ng-template>
     <ng-template ngSwitchCase="audio">

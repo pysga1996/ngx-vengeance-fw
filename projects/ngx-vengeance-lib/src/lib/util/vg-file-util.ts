@@ -7,6 +7,7 @@ export type FileType =
   | 'excel'
   | 'powerpoint'
   | 'text'
+  | 'archive'
   | 'code'
   | 'binary'
   | 'generic';
@@ -36,6 +37,9 @@ export class VgFileUtil {
         return 'pdf';
       case 'text/plain':
         return 'text';
+      case 'application/x-zip-compressed':
+      case '':
+        return 'archive';
       case 'application/json':
       case 'text/xml':
         return 'code';

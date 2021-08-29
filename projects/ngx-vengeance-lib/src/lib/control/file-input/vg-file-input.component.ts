@@ -24,9 +24,9 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder = 'Drop file here or click to browse a file';
   @Input() formData = new FormData();
   @Input() formDataFilePart = 'file';
-  @Input() isDisabled = false;
   @Input() remoteFileType: FileType = 'generic';
   @Input() validateFn: (file: File) => boolean = () => true;
+  isDisabled = false;
   remoteFileSrc!: string | SafeResourceUrl | null;
   fileType: FileType = 'generic';
   file!: File | null;
@@ -64,8 +64,9 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
 
   writeValue(obj: never): void {
     this.remoteFileSrc = obj;
+    if (!this.remoteFileSrc) return;
     this.http
-      .get(obj, {
+      .get(this.remoteFileSrc, {
         observe: 'response',
         responseType: 'blob',
       })
@@ -118,6 +119,7 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
     const isValid = this.validateFn(file);
     if (!isValid) return;
     this.file = file;
+    console.log(file.type, typeof file.type, file.type === '');
     this.fileType = VgFileUtil.getFileType(this.file);
     if (this.fileType === 'audio') {
       this.fileSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
@@ -150,19 +152,23 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
   }
 
   onResourceLoaded(
-    element: HTMLAudioElement | HTMLVideoElement,
+    element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement,
     icon: HTMLElement,
-    divLineBreak: HTMLElement,
+    divLineBreak: HTMLElement | null,
     isSuccess: boolean
   ): void {
     if (isSuccess) {
       element.style.display = 'block';
       icon.style.display = 'none';
-      divLineBreak.style.display = 'block';
+      if (divLineBreak) {
+        divLineBreak.style.display = 'block';
+      }
     } else {
       element.style.display = 'none';
       icon.style.display = 'block';
-      divLineBreak.style.display = 'none';
+      if (divLineBreak) {
+        divLineBreak.style.display = 'none';
+      }
     }
   }
 

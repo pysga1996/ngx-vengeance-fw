@@ -48,9 +48,10 @@ export class TestInputComponent implements OnInit {
     file: [
       {
         value:
-          'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/audio%2F35_-_test_06_-_lam_tr__ng_.mp3?generation=1623009377256276&alt=media',
+          'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/cover%2Flam_truong?generation=1630170199465903&alt=media',
+        // 'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/audio%2F35_-_test_06_-_lam_tr__ng_.mp3?generation=1623009377256276&alt=media',
         // 'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/cover%2Fmr._siro?generation=1630171544594327&alt=media',
-        disabled: true,
+        disabled: false,
       },
       [Validators.required],
     ],

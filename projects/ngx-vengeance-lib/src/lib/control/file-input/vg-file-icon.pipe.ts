@@ -14,6 +14,7 @@ export class VgFileIconPipe implements PipeTransform {
     excel: 'bi bi-file-earmark-spreadsheet',
     powerpoint: 'bi bi-file-earmark-ppt',
     text: 'bi bi-file-earmark-text',
+    archive: 'bi bi-file-earmark-zip',
     code: 'bi bi-file-earmark-code',
     binary: 'bi bi-file-earmark-binary',
     generic: 'bi bi-file-earmark',
