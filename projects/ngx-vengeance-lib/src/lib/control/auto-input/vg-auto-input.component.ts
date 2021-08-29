@@ -38,15 +38,21 @@ export class VgAutoInputComponent
   // eslint-disable-next-line
   value: any = null;
   isFocused = false;
+  // eslint-disable-next-line
+  @Input() modelToTextMapper: (obj: any) => string = (obj: any): string =>
+    obj['name'];
+  // eslint-disable-next-line
+  @Input() resultToModelMapper: (obj: any) => any = (obj: any): any => obj;
+  // eslint-disable-next-line
+  @Input() modelToImgSrcMapper: ((obj: any) => string) | null = (
+    obj: any
+  ): string => obj['url'];
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() isDisabled = false;
   // eslint-disable-next-line
   @Input() searchResults: any[] = [];
   @Input() limit = 10;
   @Input() placeholder = '';
-  @Input() nameField = 'name';
-  @Input() valueField = 'value';
-  @Input() imageField = '';
   // eslint-disable-next-line
   @Input() itemTemplateRef!: TemplateRef<any>;
   // eslint-disable-next-line
@@ -91,9 +97,9 @@ export class VgAutoInputComponent
   }
 
   // eslint-disable-next-line
-  emitResult(event: Event, result: any): void {
-    this.value = this.valueField ? result[this.valueField] : result;
-    this.text = result[this.nameField];
+  selectResult(event: Event, result: any): void {
+    this.value = this.resultToModelMapper(result);
+    this.text = this.modelToTextMapper(result);
     this.inputElement.nativeElement.value = this.text;
     this.changeTextEvent.emit(this.text);
     this.changeValueEvent.emit(this.value);
@@ -145,7 +151,7 @@ export class VgAutoInputComponent
   // eslint-disable-next-line
   writeValue(obj: any): void {
     this.value = obj;
-    this.text = String(this.value);
+    this.text = this.modelToTextMapper(obj);
     this.changeValueEvent.emit(this.value);
   }
 }

@@ -21,9 +21,9 @@
     >
       <div
         *ngFor="let result of searchResults"
-        [ngbTooltip]="result[nameField]"
+        [ngbTooltip]="result | vgPipeWrapper: modelToTextMapper"
         (mousedown)="$event.preventDefault()"
-        (click)="emitResult($event, result)"
+        (click)="selectResult($event, result)"
       >
         <ng-container
           [ngTemplateOutlet]="itemTemplateRef"
@@ -35,22 +35,22 @@
   <ng-template #noTemplateBlock>
     <div
       class="autocomplete-items"
-      *ngIf="imageField; else noImageBlock"
+      *ngIf="modelToImgSrcMapper; else noImageBlock"
       [hidden]="!isFocused"
     >
       <div
         *ngFor="let result of searchResults"
-        [ngbTooltip]="result[nameField]"
+        [ngbTooltip]="result | vgPipeWrapper: modelToTextMapper"
         (mousedown)="$event.preventDefault()"
-        (click)="emitResult($event, result)"
+        (click)="selectResult($event, result)"
       >
         <img
           class="d-inline-block w-25"
-          [src]="result[imageField]"
-          [alt]="result[nameField]"
+          [src]="result | vgPipeWrapper: modelToImgSrcMapper"
+          [alt]="result | vgPipeWrapper: modelToTextMapper"
         />
         <small class="d-inline-block w-75 text-truncate pl-1">{{
-          result[nameField]
+          result | vgPipeWrapper: modelToTextMapper
         }}</small>
       </div>
     </div>
@@ -59,12 +59,12 @@
     <div class="autocomplete-items" [hidden]="!isFocused">
       <div
         *ngFor="let result of searchResults"
-        [ngbTooltip]="result[nameField]"
+        [ngbTooltip]="result | vgPipeWrapper: modelToTextMapper"
         (mousedown)="$event.preventDefault()"
-        (click)="emitResult($event, result)"
+        (click)="selectResult($event, result)"
       >
         <small class="d-inline-block w-100 text-truncate pl-1">{{
-          result[nameField]
+          result | vgPipeWrapper: modelToTextMapper
         }}</small>
       </div>
     </div>

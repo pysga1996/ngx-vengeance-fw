@@ -12,7 +12,7 @@ import {
   VgToastConfig,
   VgToastData,
 } from './vg-toast.config';
-import { VgSoundUtil } from '../util/vg-soundUtil';
+import { VgSoundUtil } from '../util/vg-sound.util';
 
 @Injectable()
 export class VgToastService {

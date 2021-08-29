@@ -19,6 +19,8 @@ export class TestInputComponent implements OnInit {
   // eslint-disable-next-line
   tempResults: any[] = [];
   // eslint-disable-next-line
+  modelToTextMapper = (val: any) => val.title;
+  // eslint-disable-next-line
   tree: any[] = [];
   // eslint-disable-next-line
   units: any[] = [];
@@ -29,7 +31,7 @@ export class TestInputComponent implements OnInit {
   testNumber = 0;
   testForm: FormGroup = this.fb.group({
     testAuto: [
-      'lozzz',
+      { title: 'lozzz' },
       [
         Validators.required,
         Validators.minLength(10),

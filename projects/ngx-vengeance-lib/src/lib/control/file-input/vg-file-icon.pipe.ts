@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FileType } from '../../util/vg-file-util';
+import { FileType } from '../../util/vg-file.util';
 
 @Pipe({
   name: 'vgFileIcon',

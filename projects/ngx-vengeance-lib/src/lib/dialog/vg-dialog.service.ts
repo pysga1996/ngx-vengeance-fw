@@ -12,7 +12,7 @@ import {
   VgDialogData,
   VgDialogOptions,
 } from './vg-dialog-config';
-import { VgSoundUtil } from '../util/vg-soundUtil';
+import { VgSoundUtil } from '../util/vg-sound.util';
 
 @Injectable()
 export class VgDialogService {

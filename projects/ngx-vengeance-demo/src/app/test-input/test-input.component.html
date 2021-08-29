@@ -11,8 +11,8 @@
       <vg-auto-input
         formControlName="testAuto"
         [searchResults]="tempResults"
-        [nameField]="'title'"
-        [valueField]="'id'"
+        [modelToTextMapper]="modelToTextMapper"
+        [modelToImgSrcMapper]="null"
         [size]="'sm'"
         (changeTextEvent)="search($event)"
       ></vg-auto-input>

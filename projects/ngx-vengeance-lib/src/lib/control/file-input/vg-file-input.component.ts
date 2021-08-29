@@ -4,7 +4,7 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl,
 } from '@angular/forms';
-import { FileType, VgFileUtil } from '../../util/vg-file-util';
+import { FileType, VgFileUtil } from '../../util/vg-file.util';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 

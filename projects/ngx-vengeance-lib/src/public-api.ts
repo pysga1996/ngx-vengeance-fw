@@ -4,6 +4,7 @@
 
 export * from './lib/control/vg-control.module';
 export * from './lib/control/auto-input/vg-auto-input.component';
+export * from './lib/control/auto-input/vg-pipe-wrapper.pipe';
 export * from './lib/control/file-input/vg-file-input.component';
 export * from './lib/control/file-input/vg-file-icon.pipe';
 export * from './lib/control/error-section/vg-error-section.component';
