@@ -74,7 +74,6 @@ export class VgAutoInputComponent
 
   ngOnInit(): void {
     this.ngControl = this.inj.get(NgControl);
-    console.log(this.ngControl);
   }
 
   ngAfterViewInit(): void {

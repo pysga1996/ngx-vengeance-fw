@@ -1,0 +1,80 @@
+.file-drag-zone {
+  margin-top: 1rem;
+  border: 1px solid black;
+  min-width: 80%;
+  height: auto;
+  min-height: 5rem;
+  position: relative;
+
+  .file-drag-zone-placeholder {
+    color: dodgerblue;
+  }
+}
+
+.file-drag-zone:hover {
+  cursor: pointer;
+}
+
+.file-drag-zone-disabled, .file-drag-zone-disabled > * {
+  cursor: auto !important;
+  background-color: #cdcdcd;
+}
+
+.file-dragover {
+  border: 2px dashed black !important;
+}
+
+.file-clear {
+  display: block;
+  position: absolute !important;
+  top: -0.125em;
+  right: 0;
+  font-size: 1.2rem;
+}
+
+.file-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+
+  i {
+    font-size: 1.5rem !important;
+  }
+
+  .file-preview-image {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.file-preview-large {
+  display: block;
+
+  i {
+    font-size: 1.5rem !important;
+  }
+
+  .file-preview-audio {
+    min-width: 20rem;
+    min-height: 2rem;
+    width: auto;
+    height: auto;
+  }
+
+  .file-preview-video {
+    min-width: 25rem;
+    min-height: 10rem;
+    width: auto;
+    height: auto;
+  }
+}
+
+.file-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+}

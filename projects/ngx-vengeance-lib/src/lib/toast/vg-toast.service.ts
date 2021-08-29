@@ -12,7 +12,7 @@ import {
   VgToastConfig,
   VgToastData,
 } from './vg-toast.config';
-import { SoundUtil } from '../util/sound.util';
+import { VgSoundUtil } from '../util/vg-soundUtil';
 
 @Injectable()
 export class VgToastService {
@@ -31,7 +31,7 @@ export class VgToastService {
     private parentInjector: Injector,
     @Inject(TOAST_CONF) private toastConfig: VgToastConfig
   ) {
-    SoundUtil.initSound(this.initialToastSounds, 'toastSound');
+    VgSoundUtil.initSound(this.initialToastSounds, 'toastSound');
   }
 
   show(
@@ -44,7 +44,7 @@ export class VgToastService {
       this.msgPool.add(data.text);
     }
     const config: VgToastConfig = { ...this.toastConfig, ...runtimeConfig };
-    SoundUtil.playSound(config.sound);
+    VgSoundUtil.playSound(config.sound);
     const positionStrategy = this.getPositionStrategy(config);
     const overlayRef = this.overlay.create({
       positionStrategy,

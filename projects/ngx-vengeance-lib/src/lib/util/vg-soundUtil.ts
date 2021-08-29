@@ -1,4 +1,4 @@
-export class SoundUtil {
+export class VgSoundUtil {
   public static initSound(
     soundCollection: string[],
     label: string,

@@ -33,7 +33,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, TestInfinitiveScrollComponent, TestInputComponent],
+  declarations: [
+    AppComponent,
+    TestInfinitiveScrollComponent,
+    TestInputComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

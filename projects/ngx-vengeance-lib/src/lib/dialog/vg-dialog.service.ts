@@ -12,7 +12,7 @@ import {
   VgDialogData,
   VgDialogOptions,
 } from './vg-dialog-config';
-import { SoundUtil } from '../util/sound.util';
+import { VgSoundUtil } from '../util/vg-soundUtil';
 
 @Injectable()
 export class VgDialogService {
@@ -31,7 +31,7 @@ export class VgDialogService {
     @Inject(DIALOG_DATA) private dialogData: VgDialogData,
     @Inject(DIALOG_OPTIONS) private dialogOptions: VgDialogOptions
   ) {
-    SoundUtil.initSound(this.initialDialogSounds, 'dialogSound');
+    VgSoundUtil.initSound(this.initialDialogSounds, 'dialogSound');
   }
 
   showDialog(
@@ -108,7 +108,7 @@ export class VgDialogService {
       },
       iconClass: 'text-warning fa fa-question-circle',
     };
-    SoundUtil.playSound('notify');
+    VgSoundUtil.playSound('notify');
     this.lastDialogRef = this.showDialog(
       VgConfirmDialogComponent,
       initialState,
@@ -143,7 +143,7 @@ export class VgDialogService {
       iconClass,
       imageUrl,
     };
-    SoundUtil.playSound(sound);
+    VgSoundUtil.playSound(sound);
     this.lastDialogRef = this.showDialog(
       VgMessageDialogComponent,
       initialState,

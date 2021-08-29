@@ -1,6 +1,6 @@
 import { VgTreeNode } from '../model/vg-tree-node';
 
-export class TreeUtil {
+export class VgTreeUtil {
   public static createTreeFromFlatList<T>(
     // eslint-disable-next-line
     dataList: any[],

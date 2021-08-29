@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as TreeGen from 'tree-json-generator';
 import { VgTreeNodeCheckboxEvent } from '../../../../ngx-vengeance-lib/src/lib/model/vg-tree-node-checkbox-event';
+import { VgDialogService } from 'projects/ngx-vengeance-lib/src/public-api';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -44,9 +45,30 @@ export class TestInputComponent implements OnInit {
       [Validators.required, Validators.minLength(5), Validators.email],
     ],
     testTextArea: [null, [Validators.required]],
+    file: [
+      {
+        value:
+          'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/audio%2F35_-_test_06_-_lam_tr__ng_.mp3?generation=1623009377256276&alt=media',
+        // 'https://storage.googleapis.com/download/storage/v1/b/climax-sound.appspot.com/o/cover%2Fmr._siro?generation=1630171544594327&alt=media',
+        disabled: true,
+      },
+      [Validators.required],
+    ],
   });
+  formData = new FormData();
+  fileValidateFunc = (file: File): boolean => {
+    if (file.size > 5 * 1024 * 1024) {
+      this.dialogService.warning('Warning', 'File size exceed 5MB!!!');
+      return false;
+    }
+    return true;
+  };
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private dialogService: VgDialogService
+  ) {}
 
   ngOnInit(): void {
     this.treeTableConfig = {

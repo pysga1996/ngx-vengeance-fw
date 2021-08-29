@@ -1,0 +1,143 @@
+<div class="form-group">
+  <div
+    #dragZone
+    class="
+      file-drag-zone
+      d-flex
+      justify-content-center
+      align-items-center
+      flex-wrap
+    "
+    draggable="true"
+    [class.file-drag-zone-disabled]="isDisabled"
+    (dragover)="dragover($event, dragZone)"
+    (dragend)="dragend($event, dragZone)"
+    (dragleave)="dragend($event, dragZone)"
+    (dragexit)="dragend($event, dragZone)"
+    (drop)="drop($event, dragZone)"
+    (click)="browseFile(fileInput)"
+  >
+    <i
+      *ngIf="file"
+      class="bi bi-x-square-fill file-clear"
+      (click)="clearFile($event)"
+    ></i>
+    <ng-container
+      *ngIf="file; then hasFileBlock; else emptyFileBlock"
+    ></ng-container>
+    <ng-template #hasFileBlock>
+      <ng-container
+        [ngTemplateOutlet]="filePreview"
+        [ngTemplateOutletContext]="{
+          fileType: fileType,
+          fileSrc: fileSrc,
+          filePlaceholder: file?.name
+        }"
+      ></ng-container>
+    </ng-template>
+    <ng-template #emptyFileBlock>
+      <ng-container
+        [ngTemplateOutlet]="filePreview"
+        [ngTemplateOutletContext]="{
+          fileType: remoteFileType,
+          fileSrc: remoteFileSrc,
+          filePlaceholder: placeholder
+        }"
+      >
+      </ng-container>
+    </ng-template>
+  </div>
+  <input
+    #fileInput
+    type="file"
+    class="custom-file-input d-none"
+    id="file"
+    (change)="selectFile($event)"
+  />
+</div>
+<ng-template
+  #filePreview
+  let-dropZonePlaceholder="filePlaceholder"
+  let-src="fileSrc"
+  let-type="fileType"
+>
+  <div class="file-drag-zone-placeholder" [hidden]="isDisabled">
+    <span>{{ dropZonePlaceholder }}</span>
+  </div>
+  <ng-container [ngSwitch]="type">
+    <ng-template ngSwitchCase="image">
+      <div class="file-preview">
+        <img class="file-preview-image" [src]="src" alt="imagePreview" />
+      </div>
+    </ng-template>
+    <ng-template ngSwitchCase="audio">
+      <div class="w-100" #divLineBreak [hidden]="isDisabled"></div>
+      <div class="file-preview-large">
+        <audio
+          #audioElement
+          class="file-preview-audio"
+          [src]="src"
+          (load)="
+            onResourceLoaded(
+              audioElement,
+              fallbackIconAudio,
+              divLineBreak,
+              true
+            )
+          "
+          (error)="
+            onResourceLoaded(
+              audioElement,
+              fallbackIconAudio,
+              divLineBreak,
+              false
+            )
+          "
+          controls
+        ></audio>
+        <i
+          #fallbackIconAudio
+          [className]="type | vgFileIcon"
+          style="display: none"
+        ></i>
+      </div>
+    </ng-template>
+    <ng-template ngSwitchCase="video">
+      <div class="w-100" #divLineBreak [hidden]="isDisabled"></div>
+      <div class="file-preview-large">
+        <video
+          #videoElement
+          class="file-preview-video"
+          [src]="src"
+          (load)="
+            onResourceLoaded(
+              videoElement,
+              fallbackIconVideo,
+              divLineBreak,
+              true
+            )
+          "
+          (error)="
+            onResourceLoaded(
+              videoElement,
+              fallbackIconVideo,
+              divLineBreak,
+              false
+            )
+          "
+          controls
+        ></video>
+        <i
+          #fallbackIconVideo
+          [className]="type | vgFileIcon"
+          style="display: none"
+        ></i>
+      </div>
+    </ng-template>
+    <ng-template ngSwitchDefault>
+      <div class="file-preview">
+        <i [className]="type | vgFileIcon"></i>
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-template>
