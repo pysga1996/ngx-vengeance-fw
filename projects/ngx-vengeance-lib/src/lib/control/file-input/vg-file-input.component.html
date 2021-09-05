@@ -68,84 +68,48 @@
     <ng-template ngSwitchCase="image">
       <div class="file-preview">
         <img
-          #imageElement
+          *ngIf="src; else fallbackIconImage"
           class="file-preview-image"
           [src]="src"
           alt="imagePreview"
-          (load)="onResourceLoaded(imageElement, fallbackIconImage, null, true)"
-          (error)="
-            onResourceLoaded(imageElement, fallbackIconImage, null, false)
-          "
+          (loadedmetadata)="onLoadedMetadata($event)"
+          (error)="onErrorLoad()"
         />
-        <i
-          #fallbackIconImage
-          [className]="type | vgFileIcon"
-          style="display: none"
-        ></i>
+        <ng-template #fallbackIconImage>
+          <i [className]="type | vgFileIcon"></i>
+        </ng-template>
       </div>
     </ng-template>
     <ng-template ngSwitchCase="audio">
-      <div class="w-100" #divLineBreak [hidden]="isDisabled"></div>
+      <div class="w-100" *ngIf="src" [hidden]="isDisabled"></div>
       <div class="file-preview-large">
         <audio
-          #audioElement
+          *ngIf="src; else fallbackIconAudio"
           class="file-preview-audio"
           [src]="src"
-          (load)="
-            onResourceLoaded(
-              audioElement,
-              fallbackIconAudio,
-              divLineBreak,
-              true
-            )
-          "
-          (error)="
-            onResourceLoaded(
-              audioElement,
-              fallbackIconAudio,
-              divLineBreak,
-              false
-            )
-          "
+          (loadedmetadata)="onLoadedMetadata($event)"
+          (error)="onErrorLoad()"
           controls
         ></audio>
-        <i
-          #fallbackIconAudio
-          [className]="type | vgFileIcon"
-          style="display: none"
-        ></i>
+        <ng-template #fallbackIconAudio>
+          <i [className]="type | vgFileIcon"></i>
+        </ng-template>
       </div>
     </ng-template>
     <ng-template ngSwitchCase="video">
-      <div class="w-100" #divLineBreak [hidden]="isDisabled"></div>
+      <div class="w-100" *ngIf="src" [hidden]="isDisabled"></div>
       <div class="file-preview-large">
         <video
-          #videoElement
+          *ngIf="src; else fallbackIconVideo"
           class="file-preview-video"
           [src]="src"
-          (load)="
-            onResourceLoaded(
-              videoElement,
-              fallbackIconVideo,
-              divLineBreak,
-              true
-            )
-          "
-          (error)="
-            onResourceLoaded(
-              videoElement,
-              fallbackIconVideo,
-              divLineBreak,
-              false
-            )
-          "
+          (loadedmetadata)="onLoadedMetadata($event)"
+          (error)="onErrorLoad()"
           controls
         ></video>
-        <i
-          #fallbackIconVideo
-          [className]="type | vgFileIcon"
-          style="display: none"
-        ></i>
+        <ng-template #fallbackIconVideo>
+          <i [className]="type | vgFileIcon"></i>
+        </ng-template>
       </div>
     </ng-template>
     <ng-template ngSwitchDefault>

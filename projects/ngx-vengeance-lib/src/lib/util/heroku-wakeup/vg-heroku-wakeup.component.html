@@ -1,0 +1,38 @@
+<ng-container *ngIf="pingSuccess; else loadingDiv">
+  <ng-content></ng-content>
+</ng-container>
+<ng-template #loadingDiv>
+  <div class="h-100 w-100 d-flex justify-content-center align-items-center">
+    <div class="w-25 h-50">
+      <div *ngFor="let servicePriority of $any(configList) | keyvalue">
+        <h5>Priority: {{ servicePriority.key }}</h5>
+        <ul class="list-group">
+          <li
+            *ngFor="let service of $any(servicePriority.value) | keyvalue"
+            class="list-group-item d-flex justify-content-around"
+          >
+            <div class="d-inline-block">
+              {{ service.key }}
+            </div>
+            <div class="d-inline-block">
+              <ng-container [ngSwitch]="$any(service.value).status">
+                <div *ngSwitchCase="'success'" class="text-success text-center">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+                <div *ngSwitchCase="'failed'" class="text-danger text-center">
+                  <i class="bi bi-x-circle"></i>
+                </div>
+                <div
+                  *ngSwitchDefault
+                  class="spinner-border ms-auto"
+                  role="status"
+                  aria-hidden="true"
+                ></div>
+              </ng-container>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template>

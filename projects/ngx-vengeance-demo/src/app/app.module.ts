@@ -13,6 +13,7 @@ import {
   VgPipeModule,
   VgToastModule,
   VgTreeTableModule,
+  VgUtilModule,
 } from 'projects/ngx-vengeance-lib/src/public-api';
 // import { VgToastModule, VgControlModule, VgTreeTableModule } from 'ngx-vengeance-lib';
 import { TestModule } from './test/test.module';
@@ -43,10 +44,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    TestModule,
     VgControlModule,
     VgTreeTableModule,
     VgToastModule,
-    TestModule,
+    VgUtilModule,
     VgDirectivesModule,
     VgPipeModule,
     VgLoaderModule,

@@ -38,7 +38,8 @@
             "styles": [
               "projects/ngx-vengeance-demo/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "progress": true
           },
           "configurations": {
             "production": {

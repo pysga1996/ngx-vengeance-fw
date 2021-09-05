@@ -44,6 +44,8 @@ export * from './lib/loading/vg-loader.module';
 export * from './lib/loading/vg-loader.service';
 export * from './lib/loading/vg-loader.component';
 export * from './lib/util/vg-util.module';
+export * from './lib/util/heroku-wakeup/vg-ping-service.display';
+export * from './lib/util/heroku-wakeup/vg-heroku-wakeup.component';
 export * from './lib/util/upload-progress/vg-upload-progress.component';
 export * from './lib/layout/vg-layout.module';
 export * from './lib/layout/infinitive-scroll/vg-scroller.service';

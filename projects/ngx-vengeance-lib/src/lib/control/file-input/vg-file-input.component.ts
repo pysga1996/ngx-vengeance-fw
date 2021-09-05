@@ -1,4 +1,12 @@
-import { Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -26,6 +34,9 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
   @Input() formDataFilePart = 'file';
   @Input() remoteFileType: FileType = 'generic';
   @Input() validateFn: (file: File) => boolean = () => true;
+  @Output() metadataLoadedEvent: EventEmitter<Event> =
+    new EventEmitter<Event>();
+  @Output() fileSelectedEvent: EventEmitter<File> = new EventEmitter<File>();
   isDisabled = false;
   remoteFileSrc!: string | SafeResourceUrl | null;
   fileType: FileType = 'generic';
@@ -94,6 +105,10 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  onLoadedMetadata(event: Event): void {
+    this.metadataLoadedEvent.emit(event);
+  }
+
   dragover(event: DragEvent, dragZone: HTMLDivElement): void {
     event.preventDefault();
     dragZone.classList.add('file-dragover');
@@ -121,20 +136,18 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
     this.file = file;
     console.log(file.type, typeof file.type, file.type === '');
     this.fileType = VgFileUtil.getFileType(this.file);
-    if (this.fileType === 'audio') {
-      this.fileSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
-        URL.createObjectURL(this.file)
-      );
-      this.onChange(this.fileSrc);
+    if (this.fileType === 'audio' || this.fileType === 'video') {
+      const url = URL.createObjectURL(this.file);
+      this.fileSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
     } else {
       this.fileReader.readAsDataURL(this.file);
       this.fileReader.onload = (event) => {
         this.fileSrc = event.target?.result as string;
-        this.onChange(this.fileSrc);
       };
     }
     this.onTouched();
     this.formData.set(this.formDataFilePart, this.file);
+    this.fileSelectedEvent.emit(file);
   }
 
   clearFile(event: Event): void {
@@ -151,29 +164,12 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
     this.remoteLoaded = value;
   }
 
-  onResourceLoaded(
-    element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement,
-    icon: HTMLElement,
-    divLineBreak: HTMLElement | null,
-    isSuccess: boolean
-  ): void {
-    if (isSuccess) {
-      element.style.display = 'block';
-      icon.style.display = 'none';
-      if (divLineBreak) {
-        divLineBreak.style.display = 'block';
-      }
-    } else {
-      element.style.display = 'none';
-      icon.style.display = 'block';
-      if (divLineBreak) {
-        divLineBreak.style.display = 'none';
-      }
-    }
-  }
-
   browseFile(fileInput: HTMLInputElement): void {
     if (this.isDisabled) return;
     fileInput.click();
+  }
+
+  onErrorLoad(): void {
+    this.remoteFileSrc = null;
   }
 }
