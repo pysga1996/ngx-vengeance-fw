@@ -1,6 +1,7 @@
-<ng-container *ngIf="pingSuccess; else loadingDiv">
-  <ng-content></ng-content>
-</ng-container>
+<ng-container
+  [ngTemplateOutlet]="templateRef"
+  *ngIf="pingSuccess; else loadingDiv"
+></ng-container>
 <ng-template #loadingDiv>
   <div class="h-100 w-100 d-flex justify-content-center align-items-center">
     <div class="w-25 h-50">
@@ -23,11 +24,14 @@
                   <i class="bi bi-x-circle"></i>
                 </div>
                 <div
-                  *ngSwitchDefault
-                  class="spinner-border ms-auto"
+                  *ngSwitchCase="'loading'"
+                  class="spinner-border spinner-border-sm text-info ms-auto"
                   role="status"
                   aria-hidden="true"
                 ></div>
+                <div *ngSwitchDefault class="text-secondary text-center">
+                  <i class="bi bi-clock"></i>
+                </div>
               </ng-container>
             </div>
           </li>

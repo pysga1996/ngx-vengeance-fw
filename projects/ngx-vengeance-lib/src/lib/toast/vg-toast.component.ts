@@ -20,7 +20,7 @@ import { AnimationEvent } from '@angular/animations';
 })
 export class VgToastComponent implements OnInit, OnDestroy {
   animationState: VgToastAnimationState = 'default';
-  intervalId = 0;
+  intervalId!: NodeJS.Timeout;
   progress = 0;
   toastBefore!: VgToastOverlayRef | null;
 

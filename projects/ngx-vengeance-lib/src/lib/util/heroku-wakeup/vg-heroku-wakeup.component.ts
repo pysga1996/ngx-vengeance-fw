@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -14,7 +14,9 @@ import { catchError, delay, map } from 'rxjs/operators';
 })
 export class VgHerokuWakeupComponent implements OnInit {
   @Input() configList: VgPingServiceDisplay = {};
+  @Input() delayRetry = 10000;
   @Input() maxRetries = 3;
+  @Input() templateRef!: TemplateRef<any>;
   pingSuccess!: boolean;
 
   constructor(private http: HttpClient) {}
@@ -24,7 +26,6 @@ export class VgHerokuWakeupComponent implements OnInit {
     try {
       let retries = 0;
       let i = 0;
-      console.log(i, Object.keys(this.configList).length);
       while (i < Object.keys(this.configList).length) {
         const isSuccess = await this.processLevel(this.configList[`${i}`]);
         if (isSuccess) {
@@ -35,7 +36,7 @@ export class VgHerokuWakeupComponent implements OnInit {
           retries = 0;
         } else {
           retries++;
-          await of().pipe(delay(10000)).toPromise();
+          await of().pipe(delay(this.delayRetry)).toPromise();
         }
       }
     } catch (e) {

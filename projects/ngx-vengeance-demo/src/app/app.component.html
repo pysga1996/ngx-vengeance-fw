@@ -1,3 +1,7 @@
-<vg-heroku-wakeup [configList]="endpointMap">
-  <router-outlet></router-outlet>
+<vg-heroku-wakeup [configList]="endpointMap" [templateRef]="mainDiv">
+  <!--  <router-outlet></router-outlet>-->
 </vg-heroku-wakeup>
+
+<ng-template #mainDiv>
+  <vg-test></vg-test>
+</ng-template>
