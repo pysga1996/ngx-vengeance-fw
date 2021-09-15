@@ -24,7 +24,7 @@ export class TestComponent implements OnInit {
     '4': 'show',
   };
   counter = 0;
-  es = new EventSource('https://localhost:8095/delta-notification/lol/news');
+  // es = new EventSource('https://localhost:8095/delta-notification/lol/news');
 
   constructor(
     private toastService: VgToastService,
@@ -33,15 +33,15 @@ export class TestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.es.onopen = (event) => {
-      console.log(`Opened: `, event);
-    };
-    this.es.onmessage = (event) => {
-      console.log(`Message: `, event);
-    };
-    this.es.onerror = (event) => {
-      console.log(`Error: `, event);
-    };
+    // this.es.onopen = (event) => {
+    //   console.log(`Opened: `, event);
+    // };
+    // this.es.onmessage = (event) => {
+    //   console.log(`Message: `, event);
+    // };
+    // this.es.onerror = (event) => {
+    //   console.log(`Error: `, event);
+    // };
   }
 
   shutdownSse(): void {

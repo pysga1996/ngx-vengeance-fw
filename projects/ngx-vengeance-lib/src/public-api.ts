@@ -38,6 +38,8 @@ export * from './lib/directive/vg-currency-input.directive';
 export * from './lib/directive/vg-number-only.directive';
 export * from './lib/directive/vg-focus-first-invalid.directive';
 export * from './lib/directive/vg-delay-click.directive';
+export * from './lib/directive/vg-swappable-element.directive';
+export * from './lib/directive/vg-swappable-list.directive';
 export * from './lib/pipe/vg-pipe.module';
 export * from './lib/pipe/vg-currenry.pipe';
 export * from './lib/loading/vg-loader.module';

@@ -27,6 +27,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { VgLoaderModule } from '../../../ngx-vengeance-lib/src/lib/loading/vg-loader.module';
 import { TestInfinitiveScrollComponent } from './test-infinitive-scroll/test-infinitive-scroll.component';
 import { TestInputComponent } from './test-input/test-input.component';
+import { TestSwapItemComponent } from './test-swap-item/test-swap-item.component';
 
 // loader module
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppComponent,
     TestInfinitiveScrollComponent,
     TestInputComponent,
+    TestSwapItemComponent,
   ],
   imports: [
     BrowserModule,

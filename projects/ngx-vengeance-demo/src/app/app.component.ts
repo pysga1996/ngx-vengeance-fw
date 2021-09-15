@@ -9,9 +9,9 @@ import { VgIdleTimer } from '../../../ngx-vengeance-lib/src/lib/util/vg-idle-tim
 export class AppComponent implements OnInit, OnDestroy {
   timer!: VgIdleTimer;
   ngOnInit(): void {
-    this.timer = new VgIdleTimer(30, () => {
-      alert('Time out!');
-    });
+    // this.timer = new VgIdleTimer(30, () => {
+    //   alert('Time out!');
+    // });
   }
   ngOnDestroy(): void {
     this.timer.cleanUp();

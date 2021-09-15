@@ -1,0 +1,22 @@
+<div
+  class="
+    d-flex
+    bg-gradient
+    border-1
+    w-100
+    h-100
+    justify-content-center
+    align-items-center
+  "
+>
+  <div
+    *ngFor="let data of dataList; index as i"
+    vgSwappableList
+    [dataList]="dataList"
+    [id]="i"
+    style="width: 10rem; height: 5rem"
+    class="border-1 d-inline-block bg-success m-2"
+  >
+    {{ i }} - {{ data.name }}
+  </div>
+</div>

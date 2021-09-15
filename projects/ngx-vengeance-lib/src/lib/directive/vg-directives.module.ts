@@ -4,6 +4,8 @@ import { VgNumberOnlyDirective } from './vg-number-only.directive';
 import { VgCurrencyInputDirective } from './vg-currency-input.directive';
 import { VgFocusFirstInvalidDirective } from './vg-focus-first-invalid.directive';
 import { VgDelayClickDirective } from './vg-delay-click.directive';
+import { VgSwappableElementDirective } from './vg-swappable-element.directive';
+import { VgSwappableListDirective } from './vg-swappable-list.directive';
 
 @NgModule({
   declarations: [
@@ -11,12 +13,15 @@ import { VgDelayClickDirective } from './vg-delay-click.directive';
     VgCurrencyInputDirective,
     VgFocusFirstInvalidDirective,
     VgDelayClickDirective,
+    VgSwappableListDirective,
+    VgSwappableElementDirective,
   ],
   exports: [
     VgNumberOnlyDirective,
     VgCurrencyInputDirective,
     VgFocusFirstInvalidDirective,
     VgDelayClickDirective,
+    VgSwappableListDirective,
   ],
   imports: [CommonModule],
 })

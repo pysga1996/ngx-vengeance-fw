@@ -52,10 +52,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   - Currency Input
   - Focus First Invalid Input (Form)
   - Delay click
+  - List Swap Directive
+  - Element Swap Directive
 
 ### 7. Utilities:
 
   - Upload Progress
+  - Idle Timer
 
 ## Development server
 
