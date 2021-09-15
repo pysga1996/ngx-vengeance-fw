@@ -69,11 +69,11 @@ export class VgAutoInputComponent
 
   // eslint-disable-next-line
   onChange = (val: any): void => {
-    console.log(val);
+    console.debug(val);
   };
 
   onTouched = (): void => {
-    console.log();
+    console.debug();
   };
 
   constructor(private inj: Injector) {}

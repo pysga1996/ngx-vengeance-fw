@@ -69,12 +69,12 @@ export class VgHerokuWakeupComponent implements OnInit {
         serviceConfig[key].obs = obsMap[key];
       });
       const result = await forkJoin(obsMap).toPromise();
-      console.log(result);
+      console.debug(result);
       return Object.keys(serviceConfig)
         .map((key) => serviceConfig[key].status)
         .every((status) => status === 'success');
     } catch (e) {
-      console.log(e);
+      console.debug(e);
       return false;
     }
   }

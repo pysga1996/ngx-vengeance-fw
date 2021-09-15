@@ -47,11 +47,11 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
 
   // eslint-disable-next-line
   onChange = (val: any): void => {
-    console.log(val);
+    console.debug(val);
   };
 
   onTouched = (): void => {
-    console.log();
+    console.debug();
   };
   remoteLoaded = true;
 
@@ -134,7 +134,7 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
     const isValid = this.validateFn(file);
     if (!isValid) return;
     this.file = file;
-    console.log(file.type, typeof file.type, file.type === '');
+    console.debug(file.type, typeof file.type, file.type === '');
     this.fileType = VgFileUtil.getFileType(this.file);
     if (this.fileType === 'audio' || this.fileType === 'video') {
       const url = URL.createObjectURL(this.file);

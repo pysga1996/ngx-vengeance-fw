@@ -35,7 +35,7 @@ export class VgSoundUtil {
     }
     // audioElement.addEventListener('load', () => {
     //   audioElement.play().then(() => {
-    //     console.log(`Play ${sound}`);
+    //     console.debug(`Play ${sound}`);
     //   });
     // }, true);
     // audioElement.pause();

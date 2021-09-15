@@ -19,7 +19,7 @@ export class VgTreeTableComponent implements OnInit {
   selectedNode: VgTreeNode<unknown> | null | undefined;
 
   ngOnInit(): void {
-    console.log(this.treeItems);
+    console.debug(this.treeItems);
   }
 
   check(event: VgTreeNodeCheckboxEvent): void {

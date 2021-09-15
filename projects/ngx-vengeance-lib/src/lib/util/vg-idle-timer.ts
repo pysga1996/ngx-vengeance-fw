@@ -8,7 +8,7 @@ export class VgIdleTimer {
   constructor(
     timeout = 30,
     onTimeout = () => {
-      console.log('Interaction Timeout!');
+      console.debug('Interaction Timeout!');
     }
   ) {
     this.timeout = timeout;
