@@ -19,6 +19,42 @@ export class TestSwapItemComponent {
       id: 3,
       name: 'Tam',
     },
+    {
+      id: 4,
+      name: 'Cuong',
+    },
+    {
+      id: 5,
+      name: 'Hai',
+    },
+    {
+      id: 6,
+      name: 'Linh',
+    },
+    {
+      id: 7,
+      name: 'Hung',
+    },
+    {
+      id: 8,
+      name: 'Tuyet',
+    },
+    {
+      id: 9,
+      name: 'Hang',
+    },
+    {
+      id: 10,
+      name: 'Mai',
+    },
+    {
+      id: 11,
+      name: 'That',
+    },
+    {
+      id: 12,
+      name: 'Thuy',
+    },
   ];
 
   swapNode(event: { source: string; target: string }): void {

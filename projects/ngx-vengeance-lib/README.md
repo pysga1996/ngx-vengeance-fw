@@ -28,6 +28,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
   - Auto Input
   - File Input
+  - Tag Input
   - Error Section
 ```angular2html
     // register error section in app module provider

@@ -6,6 +6,7 @@
     [form]="$any(testForm)"
     (ngSubmit)="log()"
   >
+    <vg-tag-input formControlName="tags"></vg-tag-input>
     <div class="form-group">
       <label>Test auto</label>
       <vg-auto-input

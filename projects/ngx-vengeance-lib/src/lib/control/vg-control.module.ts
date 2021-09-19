@@ -9,6 +9,7 @@ import { VgDelayInputDirective } from './vg-delay-input.directive';
 import { VgFileInputComponent } from './file-input/vg-file-input.component';
 import { VgFileIconPipe } from './file-input/vg-file-icon.pipe';
 import { VgPipeWrapperPipe } from './auto-input/vg-pipe-wrapper.pipe';
+import { VgTagInputComponent } from './tag-input/vg-tag-input.component';
 
 export interface VgErrorDictServiceProvider extends FactoryProvider {
   provide: typeof VgErrorDictService;
@@ -26,6 +27,7 @@ export interface VgErrorDictServiceProvider extends FactoryProvider {
     VgFileInputComponent,
     VgFileIconPipe,
     VgPipeWrapperPipe,
+    VgTagInputComponent,
   ],
   imports: [CommonModule, NgbTooltipModule, NgbAlertModule],
   exports: [
@@ -34,6 +36,7 @@ export interface VgErrorDictServiceProvider extends FactoryProvider {
     VgErrorSectionComponent,
     VgErrorMessagePipe,
     VgDelayInputDirective,
+    VgTagInputComponent,
   ],
   providers: [VgErrorDictService],
 })

@@ -22,6 +22,7 @@ import { VgSwappableListDirective } from './vg-swappable-list.directive';
     VgFocusFirstInvalidDirective,
     VgDelayClickDirective,
     VgSwappableListDirective,
+    VgSwappableElementDirective,
   ],
   imports: [CommonModule],
 })

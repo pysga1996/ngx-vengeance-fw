@@ -7,6 +7,7 @@ export * from './lib/control/auto-input/vg-auto-input.component';
 export * from './lib/control/auto-input/vg-pipe-wrapper.pipe';
 export * from './lib/control/file-input/vg-file-input.component';
 export * from './lib/control/file-input/vg-file-icon.pipe';
+export * from './lib/control/tag-input/vg-tag-input.component';
 export * from './lib/control/error-section/vg-error-section.component';
 export * from './lib/control/error-section/vg-error-dict.service';
 export * from './lib/control/error-section/vg-error-message.pipe';

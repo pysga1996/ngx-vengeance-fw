@@ -3,13 +3,74 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "~@angular/cdk/overlay-prebuilt.css";
 @import "~@angular/cdk/overlay/index";
+$dragging-border: 5px dashed black !important;
+
+:root {
+  --dragging-border: #{$dragging-border};
+}
 
 input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   border-color: red !important;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-input.ng-invalid.ng-touched:focus, , textarea.ng-invalid.ng-touched:focus {
+input.ng-invalid.ng-touched:focus,
+
+,
+textarea.ng-invalid.ng-touched:focus {
   box-shadow: 0 0 0 0.2rem rgb(250, 1, 1, 25%) !important;
 }
+
+.vg-droppable {
+  cursor: grab;
+}
+
+.vg-droppable:active {
+  opacity: 90%;
+  cursor: grabbing;
+}
+
+.vg-dragging {
+  border: var(--dragging-border);
+}
+
+.vg-drag-enter {
+  opacity: 50%;
+  border: var(--dragging-border);
+  animation: beginDrag .8s ease forwards;
+}
+
+@keyframes dropIn {
+  0% {
+    transform: scale(1) rotate(-1deg)
+  }
+  50% {
+    transform: scale(1.1) rotate(-2deg)
+  }
+  100% {
+    transform: scale(0) rotate(3deg)
+  }
+}
+
+@keyframes beginDrag {
+  0% {
+    transform: rotate(0deg)
+  }
+  10% {
+    transform: rotate(-8deg)
+  }
+  30% {
+    transform: rotate(6deg)
+  }
+  55% {
+    transform: rotate(-3deg)
+  }
+  80% {
+    transform: rotate(1deg)
+  }
+  100% {
+    transform: rotate(-1deg)
+  }
+}
+
 
