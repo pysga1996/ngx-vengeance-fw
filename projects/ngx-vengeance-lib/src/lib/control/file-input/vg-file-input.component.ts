@@ -37,7 +37,8 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
   @Output() metadataLoadedEvent: EventEmitter<Event> =
     new EventEmitter<Event>();
   @Output() fileSelectedEvent: EventEmitter<File> = new EventEmitter<File>();
-  isDisabled = false;
+  @Input() isDisabled = false;
+  @Input() isReadonly = false;
   remoteFileSrc!: string | SafeResourceUrl | null;
   fileType: FileType = 'generic';
   file!: File | null;
@@ -165,7 +166,7 @@ export class VgFileInputComponent implements OnInit, ControlValueAccessor {
   }
 
   browseFile(fileInput: HTMLInputElement): void {
-    if (this.isDisabled) return;
+    if (this.isDisabled || this.isReadonly) return;
     fileInput.click();
   }
 

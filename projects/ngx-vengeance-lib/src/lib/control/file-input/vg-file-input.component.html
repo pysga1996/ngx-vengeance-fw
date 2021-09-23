@@ -9,7 +9,7 @@
       flex-wrap
     "
     draggable="true"
-    [class.file-drag-zone-disabled]="isDisabled"
+    [class.file-drag-zone-disabled]="isDisabled || isReadonly"
     (dragover)="dragover($event, dragZone)"
     (dragend)="dragend($event, dragZone)"
     (dragleave)="dragend($event, dragZone)"

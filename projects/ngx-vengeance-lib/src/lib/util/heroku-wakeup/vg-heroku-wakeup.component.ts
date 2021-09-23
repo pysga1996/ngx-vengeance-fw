@@ -6,6 +6,7 @@ import {
   PingServiceMap,
 } from './vg-ping-service.display';
 import { catchError, delay, map } from 'rxjs/operators';
+import { VgIdleTimer } from '../vg-idle-timer';
 
 @Component({
   selector: 'vg-heroku-wakeup',
@@ -16,12 +17,47 @@ export class VgHerokuWakeupComponent implements OnInit {
   @Input() configList: VgPingServiceDisplay = {};
   @Input() delayRetry = 10000;
   @Input() maxRetries = 3;
-  @Input() templateRef!: TemplateRef<any>;
-  pingSuccess!: boolean;
+  @Input() templateRef!: TemplateRef<unknown>;
+  @Input() interactTimeout = 30000;
+  pingSuccess: number | null = null;
+  isTriggerReady!: boolean;
+  setupAwake: () => Promise<void> = async () => {
+    if (this.isTriggerReady) {
+      try {
+        this.isTriggerReady = false;
+        window.removeEventListener('mousemove', this.setupAwake);
+        window.removeEventListener('scroll', this.setupAwake);
+        window.removeEventListener('keydown', this.setupAwake);
+        await this.ping();
+        this.timer = new VgIdleTimer(this.interactTimeout, this.trigger);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+  trigger: () => void = () => {
+    console.log('Time out, ready to trigger ping!');
+    this.isTriggerReady = true;
+    window.addEventListener('mousemove', this.setupAwake);
+    window.addEventListener('scroll', this.setupAwake);
+    window.addEventListener('keydown', this.setupAwake);
+  };
+  timer!: VgIdleTimer;
 
   constructor(private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
+    await this.ping();
+    this.timer = new VgIdleTimer(this.interactTimeout, this.trigger);
+  }
+
+  async ping(): Promise<void> {
+    console.debug('Start ping services');
+    // setTimeout(() => {
+    //   console.log('simulate ping success');
+    //   this.pingSuccess = 1;
+    // }, 5000);
+    this.pingSuccess = 0;
     let successCount = 0;
     try {
       let retries = 0;
@@ -40,11 +76,12 @@ export class VgHerokuWakeupComponent implements OnInit {
         }
       }
     } catch (e) {
-      console.error(e);
+      console.error('Error while pinging services!', e);
     } finally {
       if (successCount === Object.keys(this.configList).length) {
-        this.pingSuccess = true;
+        this.pingSuccess = 1;
       }
+      console.debug(`Ping service ${this.pingSuccess ? 'success' : 'failed'}!`);
     }
   }
 

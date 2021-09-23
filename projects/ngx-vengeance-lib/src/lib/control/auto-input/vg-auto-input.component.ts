@@ -49,6 +49,7 @@ export class VgAutoInputComponent
   ): string => obj['url'];
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() isDisabled = false;
+  @Input() isReadonly = false;
   // eslint-disable-next-line
   @Input() searchResults: any[] = [];
   @Input() limit = 10;

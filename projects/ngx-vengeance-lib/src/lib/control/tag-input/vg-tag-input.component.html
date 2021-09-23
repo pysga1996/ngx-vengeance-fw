@@ -1,13 +1,12 @@
-<div class="form-group">
-  <input
-    #inputElement
-    type="text"
-    class="form-control"
-    [class.ng-invalid]="ngControl['invalid']"
-    [value]="text"
-    [placeholder]="placeholder"
-    [disabled]="isDisabled"
-    vgDelayInput
-    (delayInput)="inputText($event)"
-  />
-</div>
+<input
+  #inputElement
+  type="text"
+  class="form-control"
+  [class.ng-invalid]="ngControl['invalid']"
+  [value]="text"
+  [placeholder]="placeholder"
+  [disabled]="isDisabled"
+  [readOnly]="isReadonly"
+  vgDelayInput
+  (delayInput)="inputText($event)"
+/>

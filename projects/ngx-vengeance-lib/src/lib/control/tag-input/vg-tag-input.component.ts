@@ -31,7 +31,7 @@ export class VgTagInputComponent
 {
   // eslint-disable-next-line
   values: any[] = [];
-  isDisabled!: boolean;
+
   ngControl!: NgControl;
   text = '';
   // eslint-disable-next-line
@@ -43,6 +43,8 @@ export class VgTagInputComponent
     console.debug();
   };
   @Input() placeholder!: string;
+  @Input() isDisabled!: boolean;
+  @Input() isReadonly = false;
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   // eslint-disable-next-line
   @Input() modelToTextConverter: (model: any) => string = (model) => model.name;
